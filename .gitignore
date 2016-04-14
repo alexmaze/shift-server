@@ -1,0 +1,5 @@
+node_modules
+public/libs
+.idea
+public/**/*.css
+public/dist
