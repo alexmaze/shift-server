@@ -88,7 +88,7 @@ gulp.task('browser-sync', ['sass'], function() {
 
 // 编译 sass -> css
 gulp.task('sass', function() {
-    return gulp.src('public/styles/scss/*.scss')
+    return gulp.src('public/styles/sass/*.scss')
         .pipe(sass())
         .pipe(gulp.dest('public/styles/css'))
         // 加载到 browser-sync
