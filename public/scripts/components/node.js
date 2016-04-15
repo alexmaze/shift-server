@@ -1,4 +1,10 @@
-(function() {
+(function($) {
+
+    // check env.
+    if (window.SHIFT === null || window.SHIFT === undefined) {
+        throw "ERROR, can't find window.SHIFT!";
+        return;
+    }
 
     var NODE_TYPE_CONFIG = {
         logic: {
@@ -95,11 +101,15 @@
         this.id = id ? id : 'TMP' + new Date().getTime();
 
         this._typeObj = NODE_TYPE_CONFIG[type];
-        //this._typeObj || (throw 'Need type!'); TODO
+        if (!this._typeObj) {
+            throw 'Param: "type" is not correct!';
+        }
         this.type = type;
 
         this._nameObj = this._typeObj.names[name];
-        //this._nameObj || throw new error('Need name!');
+        if (!this._nameObj) {
+            throw 'Param: "name" is not correct!';
+        }
         this.name = name;
 
         this.label = label ? label : this._nameObj.label;
@@ -111,6 +121,9 @@
         this.value = null;
 
         this.valueType = this._nameObj.valueType;
+
+        // register
+        window.SHIFT.addNode(this);
     }
 
     Node.prototype.render = function(parentId) {
@@ -141,8 +154,16 @@
     Node.NODE_TYPE_CONFIG = NODE_TYPE_CONFIG;
 
     // 作用域检查
-    window.SHIFT = this.SHIFT ? this.SHIFT : {};
-    // export
+    if (window.SHIFT === undefined || window.SHIFT === null) {
+        window.SHIFT = {};
+    }
+    if (window.SHIFT.nodes === undefined || window.SHIFT.nodes === null) {
+        window.SHIFT.nodes = [];
+    }
+    if (window.SHIFT.idMap === undefined || window.SHIFT.idMap === null) {
+        window.SHIFT.idMap = {};
+    }
+
     window.SHIFT.Node = Node;
 
     //--------
@@ -210,4 +231,4 @@
         instance.connect({ uuids: [uuid_source, uuid_target] });
     }
 
-})();
+})(jQuery);

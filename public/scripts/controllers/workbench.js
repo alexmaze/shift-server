@@ -1,14 +1,23 @@
 (function() {
 
+    if (!SHIFT || !SHIFT.Node) {
+        throw 'ERROR, Module Missing SHIFT / SHIFT.Node!';
+    }
+
     var config = SHIFT.Node.NODE_TYPE_CONFIG;
     var map = {};
     for (var key in config) {
         if (config.hasOwnProperty(key)) {
             for (var key2 in config[key].names) {
                 var label = config[key].names[key2].label;
-                map[label] = {type: key, name: key2};
+                map[label] = { type: key, name: key2 };
             }
         }
+    }
+
+    function buildNodeParams(label) {
+        var params = map[label];
+        return params;
     }
 
     function getTreeData() {
@@ -34,7 +43,10 @@
         return tree;
     }
 
-
+    $('#btnExport').click(function(event) {
+        /* Act on the event */
+        console.log(window.SHIFT.nodes);
+    });
 
     jsPlumb.bind("ready", function() {
         console.log("jsPlumb is ready to use");
@@ -65,32 +77,19 @@
         });
 
         $('#flow-panel').on('drop', function(ev) {
-
             //avoid event conlict for jsPlumb
             if (ev.target.className.indexOf('_jsPlumb') >= 0) {
                 return;
             }
-
             ev.preventDefault();
             var mx = '' + ev.originalEvent.offsetX + 'px';
             var my = '' + ev.originalEvent.offsetY + 'px';
-
             var nodeText = ev.originalEvent.dataTransfer.getData('text');
-
             var nodeParams = buildNodeParams(nodeText);
             nodeParams.position = { x: mx, y: my };
-
             var newNode = new SHIFT.Node(nodeParams);
-
             newNode.render('flow-panel');
-
-
             console.log('on drop : ' + nodeText);
-            // var uid = new Date().getTime();
-            // var node = addNode('flow-panel', 'node' + uid, nodeText, { x: mx, y: my });
-            // addPorts(instance, node, ['out'], 'output');
-            // addPorts(instance, node, ['in1', 'in2'], 'input');
-            // instance.draggable($(node));
         }).on('dragover', function(ev) {
             ev.preventDefault();
             console.log('on drag over');
@@ -98,12 +97,10 @@
 
         jsPlumb.fire("jsFlowLoaded", instance);
 
-
-        function buildNodeParams(label) {
-            var params = map[label];
-            return params;
-        }
-
+        instance.bind("connection", function(info) {
+            //  .. update your model in here, maybe.
+            console.log(info);
+        });
 
     });
 
