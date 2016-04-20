@@ -1,0 +1,57 @@
+.WorkBench {
+    color: #ffffff;
+    height: 100%;
+    background: #263238;
+
+    $left_width: 200px;
+    $right_width: 300px;
+
+    .Showcase {
+        float: left;
+        width: $left_width;
+        border-right: 1px solid #ffffff;
+        height: 100%;
+        .firstType {
+            margin: 5px;
+            box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
+            margin: 0 0 10px 0;
+            >.label {
+                font-size: 16px;
+                padding: 5px;
+                box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
+            }
+        }
+        .secondType {
+            // border: 2px solid black;
+            margin: 0 5px;
+            >.label {
+                padding: 5px;
+            }
+        }
+        .thirdType {
+            // border: 3px solid black;
+            border: 1px solid gray;
+            margin: 5px;
+            height: 40px;
+            >.label {
+                padding: 5px;
+                color: grey;
+            }
+        }
+    }
+
+    .Sketchpad {
+        float: left;
+        width: calc(100% - #{$left_width} - #{$right_width});
+        height: 100%;
+        background: #263238;
+    }
+
+    .CodeBox {
+        float: left;
+        width: $right_width;
+        margin: 40px;
+        height: 100%;
+        background: #fff;
+    }
+}

@@ -75,7 +75,7 @@ gulp.task('serve', function() {
 });
 
 // 启动 browser-sync #前端资源热部署
-gulp.task('browser-sync', ['sass'], function() {
+gulp.task('bsync', ['sass'], function() {
     browserSync.init({
         proxy: 'localhost:3000',
         port: '8080'
