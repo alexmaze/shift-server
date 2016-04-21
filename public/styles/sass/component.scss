@@ -9,15 +9,15 @@
     .Showcase {
         float: left;
         width: $left_width;
-        border-right: 1px solid #ffffff;
         height: 100%;
+        background: #333B3F;
         .firstType {
-            margin: 5px;
-            box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
-            margin: 0 0 10px 0;
+            //box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
+            margin: 10px;
+            background: rgb(72, 83, 88);
             >.label {
                 font-size: 14px;
-                padding: 5px;
+                padding: 5px 10px;
                 box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
             }
         }
@@ -51,13 +51,19 @@
         float: left;
         width: $right_width;
         height: 100%;
+        font-size: 10px;
         >.codeArea {
             margin: 25px 20px;
             height: calc(100% - 50px);
             background: #333B3F;
             border-radius: 5px;
-            padding: 10px 20px;
+            //padding: 10px 20px;
+            >pre {
+                margin: 0;
+                overflow: auto;
+            }
             .hljs {
+                margin: 10px;
                 background: none;
                 font-family: Menlo, Consolas, Mono;
             }
