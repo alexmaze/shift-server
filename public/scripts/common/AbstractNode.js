@@ -7,7 +7,7 @@
     function AbstractNode() {
     }
     Shift.extend(AbstractNode, Component, {
-        render: function(selector, instance) {
+        render: function(parentId, instance) {
             throw 'Child class must implament this function!';
         },
         getModel: function() {
@@ -18,7 +18,7 @@
             var panel = d3.select("#" + parentId);
             panel.append('div').style('width', '120px').style('height', '50px')
                 .style('position', 'absolute')
-                .style('top', position.y).style('left', position.x)
+                .style('top', position.y + 'px').style('left', position.x + 'px')
                 .style('border', '2px #9DFFCA solid').attr('align', 'center')
                 .attr('id', nodeId).classed('node', true)
                 .text(nodeLable);

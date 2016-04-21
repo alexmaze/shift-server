@@ -26,7 +26,7 @@
          * @override
          */
         doBuild: function(type) {
-            this.first.build(type);
+            return this.first.build(type);
         },
 
         /**

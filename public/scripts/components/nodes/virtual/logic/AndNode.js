@@ -3,6 +3,7 @@
     var Shift = window.srequire('Shift');
     var AbstractNode = window.srequire('Shift.AbstractNode');
     var AbstractNodeFactory = window.srequire('Shift.AbstractNodeFactory');
+    var NodeModel = window.srequire('Shift.NodeModel');
     var globalNodeFactory = window.srequire('Shift.globalNodeFactory');
 
 
@@ -13,13 +14,14 @@
         tertiary: 'and'
     }
 
-    function AndNode(nodeModel) {
-        this.super.init();
-        this.model = nodeModel;
+    function AndNode() {
+        this.init();
+        this.model = new NodeModel();
     }
+
     Shift.extend(AndNode, AbstractNode, {
-        render: function(selector, instance) {
-            var el = this.jsPlumbAddNode(parentId, this.id, this.label, this.position);
+        render: function(parentId, instance) {
+            var el = this.jsPlumbAddNode(parentId, this.id, this.model.label, this.model.position);
 
             // var inPorts = [];
             // for (var i = 0; i < this._nameObj.inputNum ; i++) {

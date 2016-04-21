@@ -12,7 +12,8 @@
     var nodeTypeMap = {};
     var nodeId = 0;
     function getNodeId(key1, key2, key3) {
-        var type = NodeModel.buildType(key1, key2, key3);
+        // var type = NodeModel.buildType(key1, key2, key3);
+        var type = [key1, key2, key3].join('.');
         nodeTypeMap[nodeId] = type;
         nodeId++;
         return nodeId-1;
@@ -67,8 +68,8 @@
             // handle drag & drop
             $parent.find('.thirdType').attr('draggable', 'true').on('dragstart', function(ev) {
                 ev.originalEvent.dataTransfer.setData('text', nodeTypeMap[ev.target.id]);
-                console.log('drag start');
-                console.log(nodeTypeMap[ev.target.id]);
+                // console.log('drag start');
+                // console.log(nodeTypeMap[ev.target.id]);
             });
         },
 

@@ -24,18 +24,18 @@
      * @param {string} secondary secondary type
      * @param {string} tertiary  tertiary type
      */
-    var NodeType = function(primary, secondary, tertiary) {
+    function NodeType(primary, secondary, tertiary) {
         this.primary = primary;
         this.secondary = secondary;
         this.tertiary = tertiary;
     }
 
-    var NodePosition = function(x, y) {
+    function NodePosition(x, y) {
         this.x = x;
         this.y = y;
     }
 
-    var NodeInput = function(port, type, refId,
+    function NodeInput(port, type, refId,
         refOutputPort, constValue, value, valueType, sub) {
         this.port = port;
         this.type = type;
@@ -58,7 +58,7 @@
         this.sub.push(inputSub);
     }
 
-    var NodeOutput = function(port, value, valueType) {
+    function NodeOutput(port, value, valueType) {
         this.port = port;
         this.value = value;
         this.valueType = valueType;
