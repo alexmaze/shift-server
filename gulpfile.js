@@ -83,7 +83,7 @@ gulp.task('bsync', ['sass'], function() {
 
     // 监控 sass, 热编译
     gulp.watch('public/**/*.scss', ['sass']);
-    gulp.watch(['public/**/*.html', 'public/**/*.js']).on('change', reload);
+    gulp.watch(['public/scripts/**/*.js']).on('change', reload);
 });
 
 // 编译 sass -> css

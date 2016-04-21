@@ -17,12 +17,21 @@
 
             var html = [];
             html.push('<div id="', this.id, '" class="CodeBox">');
-
-            html.push('<p>alex</p>');
-
+            html.push('<div class="codeArea">');
+            html.push('<pre><code class="javascript"></code></pre>');
+            html.push('</div>');
             html.push('</div>');
 
             $parent.append(html.join(''));
+
+            this.fetchCode();
+        },
+
+        fetchCode: function() {
+            var _this = this;
+            setTimeout(function() {
+
+            }, 0);
         }
 
     });

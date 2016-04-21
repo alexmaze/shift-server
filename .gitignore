@@ -3,3 +3,4 @@ public/libs
 .idea
 public/**/*.css
 public/dist
+.DS_Store

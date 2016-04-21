@@ -4,7 +4,7 @@
     background: #263238;
 
     $left_width: 200px;
-    $right_width: 300px;
+    $right_width: 350px;
 
     .Showcase {
         float: left;
@@ -42,7 +42,7 @@
 
     .Sketchpad {
         float: left;
-        width: calc(100% - #{$left_width} - #{$right_width});
+        width: calc(100% - #{$left_width} - #{$right_width} - 2px);
         height: 100%;
         background: #263238;
     }
@@ -50,8 +50,12 @@
     .CodeBox {
         float: left;
         width: $right_width;
-        margin: 40px;
         height: 100%;
-        background: #fff;
+        >.codeArea {
+            margin: 25px 20px;
+            height: calc(100% - 50px);
+            background: #333B3F;
+            border-radius: 5px;
+        }
     }
 }
