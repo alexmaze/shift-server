@@ -35,7 +35,7 @@
             var $panel = $(parentEl)
             var html = [];
             // --title
-            html.push('<div class="Node AndNode" id="' + this.id + '">');
+            html.push('<div class="Node OrNode" id="' + this.id + '">');
             html.push('<div class="title">', label, '</div>');
             // --content
             html.push('<div class="content">');

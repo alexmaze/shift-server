@@ -35,7 +35,7 @@
             var $panel = $(parentEl)
             var html = [];
             // --title
-            html.push('<div class="Node AndNode" id="' + this.id + '">');
+            html.push('<div class="Node NotNode" id="' + this.id + '">');
             html.push('<div class="title">', label, '</div>');
             // --content
             html.push('<div class="content">');
@@ -60,17 +60,7 @@
             // input port 1
             this.instance.addEndpoint(this.__el[0], {
                 uuid: this.id + '-in-0',
-                anchor: [0.1, 0.53, 0, 0],
-                cssClass: "NodePort",
-                endpoint: 'Dot',
-                maxConnections: -1,
-                isSource: false,
-                isTarget: true
-            });
-            // input port 2
-            this.instance.addEndpoint(this.__el[0], {
-                uuid: this.id + '-in-1',
-                anchor: [0.1, 0.74, 0, 0],
+                anchor: [0.1, 0.7, 0, 0],
                 cssClass: "NodePort",
                 endpoint: 'Dot',
                 maxConnections: -1,
@@ -80,7 +70,7 @@
             // output port 1
             this.instance.addEndpoint(this.__el[0], {
                 uuid: this.id + '-out-0',
-                anchor: [0.9, 0.53, 0, 0],
+                anchor: [0.9, 0.7, 0, 0],
                 cssClass: "NodePort",
                 endpoint: 'Dot',
                 maxConnections: -1,

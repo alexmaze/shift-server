@@ -15,7 +15,7 @@
         background-color: #ec510e;
         color: #fffefe;
         font: 700 9px / 20px Helvetica;
-        padding-left: 7px;        
+        padding-left: 7px;
         border: 0px;
     }
     .content {
@@ -24,12 +24,19 @@
     }
 }
 
-.AndNode {
+.AndNode, .NotNode, .OrNode, .ConditionalNode {
     width: 90px;
     height: 60px;
     border: 0px;
     .content {
         height: 40px;
+    }
+}
+
+.NotNode {
+    height: 46px;
+    .content {
+        height: 26px;
     }
 }
 
@@ -40,7 +47,7 @@
     svg {
         width: 8px;
         height: 8px;
-        circle {  
+        circle {
             fill: #CFCFCF;
             stroke: #090909;
             stroke-width: 1;
