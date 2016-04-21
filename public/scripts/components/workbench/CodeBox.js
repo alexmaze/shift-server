@@ -24,14 +24,12 @@
 
             $parent.append(html.join(''));
 
-            this.fetchCode();
+            this.__el = $parent.find('#' + this.id).find('code');
         },
 
-        fetchCode: function() {
-            var _this = this;
-            setTimeout(function() {
-
-            }, 0);
+        update: function(code) {
+            this.__el.text(code);
+            hljs.highlightBlock(this.__el[0]);
         }
 
     });

@@ -30,6 +30,21 @@
             this.showcase.render(this._el);
             this.sketchpad.render(this._el);
             this.codebox.render(this._el);
+
+            this.fetchData();
+        },
+        fetchData: function() {
+            var _this = this;
+            setTimeout(function() {
+                var code = [];
+                code.push('var Sketchpad = require(\'Shift.Sketchpad\');\n');
+                code.push('function WorkBench() {\n');
+                code.push('  this.init();\n');
+                code.push('  this.showcase = new Showcase();\n');
+                code.push('  this.codebox = new CodeBox();\n');
+                code.push('  this.sketchpad = new Sketchpad();\n}\n');
+                _this.codebox.update(code.join(''));
+            }, 0);
         }
 
     });
