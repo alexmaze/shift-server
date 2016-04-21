@@ -44,6 +44,12 @@
         width: calc(100% - #{$left_width} - #{$right_width} - 2px);
         height: 100%;
         background: #263238;
+        position: relative;
+        overflow: auto;
+        .desk {
+            min-width: 100%;
+            min-height: 100%;
+        }
     }
 
     .CodeBox {

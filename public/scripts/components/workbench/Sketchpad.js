@@ -19,9 +19,10 @@
             var $parent = $(selector);
             var html = [];
             html.push('<div id="', this.id, '" class="Sketchpad">');
+            html.push('<div id="', this.id, '_desk" class="desk"></div>')
             html.push('</div>');
             $parent.append(html.join(''));
-            this.__el = $parent.find('#' + this.id);
+            this.__el = $parent.find('#' + this.id + '_desk');
 
             this.renderDrawArea();
         },
@@ -66,11 +67,15 @@
                     event.originalEvent.offsetY);
 
                 // TODO build & render Node
-                var newNode = Shift.globalNodeFactory.build(nodeType);
-                newNode.model.type = nodeType;
-                newNode.model.position = nodePosition;
 
-                newNode.render(_this.id, _this.jsPlumbInstance);
+                var model = new NodeModel({
+                    type: nodeType,
+                    position: nodePosition
+                });
+
+                var newNode = Shift.globalNodeFactory.build(nodeType, model);
+                newNode.render(_this.__el, _this.jsPlumbInstance);
+
             }).on('dragover', function(event) {
                 event.preventDefault();
             });

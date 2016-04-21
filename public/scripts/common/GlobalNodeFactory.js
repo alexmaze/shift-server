@@ -25,8 +25,8 @@
         /**
          * @override
          */
-        doBuild: function(type) {
-            return this.first.build(type);
+        doBuild: function(type, model) {
+            return this.first.build(type, model);
         },
 
         /**

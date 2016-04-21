@@ -14,12 +14,12 @@
      * @param  {NodeType} type NodeType object
      * @return {[type]}      [description]
      */
-    AbstractNodeFactory.prototype.build = function(type) {
+    AbstractNodeFactory.prototype.build = function(type, model) {
         if (this.check(type)) {
-            return this.doBuild(type);
+            return this.doBuild(type, model);
         }
         if (this.next instanceof AbstractNodeFactory) {
-            return this.next.build();
+            return this.next.build(type, model);
         }
         throw 'No available factories for ' + JSON.stringify(type);
     }
@@ -44,7 +44,7 @@
      * @param  {[type]} type [description]
      * @return {[type]}      [description]
      */
-    AbstractNodeFactory.prototype.doBuild = function(type) {
+    AbstractNodeFactory.prototype.doBuild = function(type, model) {
         throw 'Child class must implament this function!';
     }
 

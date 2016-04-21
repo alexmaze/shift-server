@@ -4,80 +4,95 @@
     var Shift = window.srequire('Shift');
     var Component = window.srequire('Shift.Component');
 
-    function AbstractNode() {
-    }
+    function AbstractNode() {}
     Shift.extend(AbstractNode, Component, {
-        render: function(parentId, instance) {
+
+        init: function(nodeModel) {
+            Component.prototype.init.apply(this);
+
+            // update model id
+            this.model = nodeModel;
+            if (this.model.id !== null && this.model.id !== undefined) {
+                this.id = this.model.id;
+            } else {
+                this.model.id = this.id;
+            }
+        },
+
+        render: function(parentEl, instance) {
             throw 'Child class must implament this function!';
         },
         getModel: function() {
             return this.model;
-        },
-
-        jsPlumbAddNode: function(parentId, nodeId, nodeLable, position) {
-            var panel = d3.select("#" + parentId);
-            panel.append('div').style('width', '120px').style('height', '50px')
-                .style('position', 'absolute')
-                .style('top', position.y + 'px').style('left', position.x + 'px')
-                .style('border', '2px #9DFFCA solid').attr('align', 'center')
-                .attr('id', nodeId).classed('node', true)
-                .text(nodeLable);
-
-            return jsPlumb.getSelector('#' + nodeId)[0];
-        },
-
-        jsPlumbAddPorts: function(instance, node, ports, type) {
-            //Assume horizental layout
-            var number_of_ports = ports.length;
-            var i = 0;
-            var height = $(node).height(); //Note, jquery does not include border for height
-            var y_offset = 1 / (number_of_ports + 1);
-            var y = 0;
-
-            for (; i < number_of_ports; i++) {
-                var anchor = [0, 0, 0, 0];
-                var paintStyle = { radius: 5, fillStyle: '#FF8891' };
-                var isSource = false,
-                    isTarget = false;
-                if (type === 'output') {
-                    anchor[0] = 1;
-                    paintStyle.fillStyle = '#D4FFD6';
-                    isSource = true;
-                } else {
-                    isTarget = true;
-                }
-
-                anchor[1] = y + y_offset;
-                y = anchor[1];
-
-                instance.addEndpoint(node, {
-                    uuid: node.getAttribute("id") + "-" + ports[i],
-                    paintStyle: paintStyle,
-                    anchor: anchor,
-                    maxConnections: -1,
-                    isSource: isSource,
-                    isTarget: isTarget
-                });
-            }
-        },
-
-        jsPlumbConnectPorts: function(instance, node1, port1, node2, port2) {
-            // declare some common values:
-            var color = "gray";
-            var arrowCommon = { foldback: 0.8, fillStyle: color, width: 5 },
-                // use three-arg spec to create two different arrows with the common values:
-                overlays = [
-                    ["Arrow", { location: 0.8 }, arrowCommon],
-                    ["Arrow", { location: 0.2, direction: -1 }, arrowCommon]
-                ];
-
-            var uuid_source = node1.getAttribute("id") + "-" + port1;
-            var uuid_target = node2.getAttribute("id") + "-" + port2;
-
-            instance.connect({ uuids: [uuid_source, uuid_target] });
         }
-    });
+    })
+
     window.sregister('Shift.AbstractNode', AbstractNode);
+
+    //     jsPlumbAddNode: function(parentId, nodeId, nodeLable, position) {
+    //         // var panel = d3.select();
+    //         // var panel = d3.select("#" + parentId);
+    //         // panel.append('div').style('width', '120px').style('height', '50px')
+    //         //     .style('position', 'absolute')
+    //         //     .style('top', position.y + 'px').style('left', position.x + 'px')
+    //         //     .style('border', '2px #9DFFCA solid').attr('align', 'center')
+    //         //     .attr('id', nodeId).classed('node', true)
+    //         //     .text(nodeLable);
+
+    //         // return jsPlumb.getSelector('#' + nodeId)[0];
+    //     },
+
+    //     jsPlumbAddPorts: function(instance, node, ports, type) {
+    //         //Assume horizental layout
+    //         var number_of_ports = ports.length;
+    //         var i = 0;
+    //         var height = $(node).height(); //Note, jquery does not include border for height
+    //         var y_offset = 1 / (number_of_ports + 1);
+    //         var y = 0;
+
+    //         for (; i < number_of_ports; i++) {
+    //             var anchor = [0, 0, 0, 0];
+    //             var paintStyle = { radius: 5, fillStyle: '#FF8891' };
+    //             var isSource = false,
+    //                 isTarget = false;
+    //             if (type === 'output') {
+    //                 anchor[0] = 1;
+    //                 paintStyle.fillStyle = '#D4FFD6';
+    //                 isSource = true;
+    //             } else {
+    //                 isTarget = true;
+    //             }
+
+    //             anchor[1] = y + y_offset;
+    //             y = anchor[1];
+
+    //             instance.addEndpoint(node, {
+    //                 uuid: node.getAttribute("id") + "-" + ports[i],
+    //                 paintStyle: paintStyle,
+    //                 anchor: anchor,
+    //                 maxConnections: -1,
+    //                 isSource: isSource,
+    //                 isTarget: isTarget
+    //             });
+    //         }
+    //     },
+
+    //     jsPlumbConnectPorts: function(instance, node1, port1, node2, port2) {
+    //         // declare some common values:
+    //         var color = "gray";
+    //         var arrowCommon = { foldback: 0.8, fillStyle: color, width: 5 },
+    //             // use three-arg spec to create two different arrows with the common values:
+    //             overlays = [
+    //                 ["Arrow", { location: 0.8 }, arrowCommon],
+    //                 ["Arrow", { location: 0.2, direction: -1 }, arrowCommon]
+    //             ];
+
+    //         var uuid_source = node1.getAttribute("id") + "-" + port1;
+    //         var uuid_target = node2.getAttribute("id") + "-" + port2;
+
+    //         instance.connect({ uuids: [uuid_source, uuid_target] });
+    //     }
+    // });
 
     // var NODE_TYPE_CONFIG = {
     //     logic: {

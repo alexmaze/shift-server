@@ -6,15 +6,19 @@
     /**
      * [Node Model]
      */
-    function NodeModel() {
-        this.id = null;
-        this.type = null;
-        this.operation = null;
-        this.address = null;
-        this.label = null;
-        this.position = null;
-        this.inputs = null;
-        this.outputs = null;
+    function NodeModel(config) {
+        if (config.type == null || config.position == null) {
+            throw 'ERROR: new NodeModel, config.type/config.position cannot empty!';
+        }
+
+        this.id = config.id;
+        this.type = config.type;            // must have
+        this.operation = config.operation;
+        this.address = config.address;
+        this.label = config.label;
+        this.position = config.position;    // must have
+        this.inputs = config.inputs;
+        this.outputs = config.outputs;
     }
 
     //---------------------------------------------------
