@@ -12,14 +12,15 @@
     var TYPE = {
         primary: 'virtual',
         secondary: 'logic',
-        tertiary: 'and'
+        tertiary: 'not'
     }
 
-    function AndNode(nodeModel) {
+    function NotNode(nodeModel) {
         this.init(nodeModel);
     }
 
-    Shift.extend(AndNode, AbstractNode, {
+    Shift.extend(NotNode, AbstractNode, {
+
 
         render: function(parentEl, instance) {
             this.instance = instance;
@@ -87,17 +88,15 @@
                 isTarget: false
             });
         }
-
-
     });
 
-    window.sregister('Shift.AndNode', AndNode);
+    window.sregister('Shift.NotNode', NotNode);
 
 
     //========================================================================
     //== Factory ==
-    function AndNodeFactory() {}
-    Shift.extend(AndNodeFactory, AbstractNodeFactory, {
+    function NotNodeFactory() {}
+    Shift.extend(NotNodeFactory, AbstractNodeFactory, {
         check: function(type) {
             if (type.primary == TYPE.primary &&
                 type.secondary == TYPE.secondary &&
@@ -107,10 +106,10 @@
             return false;
         },
         doBuild: function(type, model) {
-            return new AndNode(model);
+            return new NotNode(model);
         }
     });
-    globalNodeFactory.register(new AndNodeFactory());
+    globalNodeFactory.register(new NotNodeFactory());
 
 
 })();

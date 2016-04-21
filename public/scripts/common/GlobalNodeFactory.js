@@ -42,8 +42,8 @@
                 this.last = factory;
                 this.first.next = this.last;
             } else {
+                this.last.next = factory;
                 this.last = factory;
-                this.last.next = this.last;
             }
         }
     });
