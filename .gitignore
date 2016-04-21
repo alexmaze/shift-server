@@ -1,5 +1,5 @@
 node_modules
-public/libs
+public/libs/bower
 .idea
 public/**/*.css
 public/dist
