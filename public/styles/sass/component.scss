@@ -3,10 +3,8 @@
     height: 100%;
     background: #263238;
     overflow: auto;
-
     $left_width: 200px;
     $right_width: 350px;
-
     .Showcase {
         float: left;
         width: $left_width;
@@ -38,7 +36,6 @@
             }
         }
     }
-
     .Sketchpad {
         float: left;
         width: calc(100% - #{$left_width} - #{$right_width} - 2px);
@@ -51,7 +48,6 @@
             min-height: 100%;
         }
     }
-
     .CodeBox {
         float: left;
         width: $right_width;
@@ -65,11 +61,24 @@
             >pre {
                 margin: 0;
                 overflow: auto;
+                height: calc(100% - 70px);
             }
             .hljs {
                 margin: 10px;
                 background: none;
                 font-family: Menlo, Consolas, Mono;
+            }
+
+            $btn_deploy_width: $right_width - 70px;
+            .deploy {
+                width: $btn_deploy_width;
+                margin: 15px;
+                height: 40px;
+                background: #44D06B;
+                border: 0;
+                border-radius: 5px;
+                font-size: 14px;
+                color: #ffffff;
             }
         }
     }
