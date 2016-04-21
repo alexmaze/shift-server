@@ -6,6 +6,7 @@
     background-color: #ffffff;
     border-radius: 6px;
     overflow: hidden;
+    z-index: 1;
     .title {
         height: 20px;
         width: 90px;
@@ -29,5 +30,33 @@
     border: 0px;
     .content {
         height: 40px;
+    }
+}
+
+.NodePort {
+    width: 8px;
+    height: 8px;
+    z-index: 2;
+    svg {
+        width: 8px;
+        height: 8px;
+        circle {  
+            fill: #CFCFCF;
+            stroke: #090909;
+            stroke-width: 1;
+            cx: 4;
+            cy: 4;
+            r: 3;
+        }
+    }
+    &.jsplumb-endpoint-connected {
+        svg circle {
+            fill: #2EFDF6;
+        }
+    }
+    &.jsplumb-hover {
+        svg circle {
+            fill: rgb(220, 220, 220);
+        }
     }
 }

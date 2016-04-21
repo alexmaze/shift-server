@@ -22,7 +22,7 @@
     Shift.extend(AndNode, AbstractNode, {
 
         render: function(parentEl, instance) {
-            // this.instance = instance;
+            this.instance = instance;
             // this.parentId = parentId;
 
             console.log(this.model);
@@ -52,9 +52,98 @@
 
             // -----------------
             // render ports
+            this._renderPorts();
+        },
 
+        _renderPorts: function() {
+            // input port 1
+            this.instance.addEndpoint(this.__el[0], {
+                uuid: this.id + '-in-0',
+                anchor: [0.1, 0.53, 0, 0],
+                cssClass: "NodePort",
+                endpoint: 'Dot',
+                maxConnections: -1,
+                isSource: false,
+                isTarget: true
+            });
+            // input port 2
+            this.instance.addEndpoint(this.__el[0], {
+                uuid: this.id + '-in-1',
+                anchor: [0.1, 0.74, 0, 0],
+                cssClass: "NodePort",
+                endpoint: 'Dot',
+                maxConnections: -1,
+                isSource: false,
+                isTarget: true
+            });
+            // output port 1
+            this.instance.addEndpoint(this.__el[0], {
+                uuid: this.id + '-out-0',
+                anchor: [0.9, 0.53, 0, 0],
+                cssClass: "NodePort",
+                endpoint: 'Dot',
+                maxConnections: -1,
+                isSource: true,
+                isTarget: false
+            });
         }
+
+
     });
+
+
+    //     jsPlumbAddPorts: function(instance, node, ports, type) {
+    //         //Assume horizental layout
+    //         var number_of_ports = ports.length;
+    //         var i = 0;
+    //         var height = $(node).height(); //Note, jquery does not include border for height
+    //         var y_offset = 1 / (number_of_ports + 1);
+    //         var y = 0;
+
+    //         for (; i < number_of_ports; i++) {
+    //             var anchor = [0, 0, 0, 0];
+    //             var paintStyle = { radius: 5, fillStyle: '#FF8891' };
+    //             var isSource = false,
+    //                 isTarget = false;
+    //             if (type === 'output') {
+    //                 anchor[0] = 1;
+    //                 paintStyle.fillStyle = '#D4FFD6';
+    //                 isSource = true;
+    //             } else {
+    //                 isTarget = true;
+    //             }
+
+    //             anchor[1] = y + y_offset;
+    //             y = anchor[1];
+
+    //             instance.addEndpoint(node, {
+    //                 uuid: node.getAttribute("id") + "-" + ports[i],
+    //                 paintStyle: paintStyle,
+    //                 anchor: anchor,
+    //                 maxConnections: -1,
+    //                 isSource: isSource,
+    //                 isTarget: isTarget
+    //             });
+    //         }
+    //     },
+
+    //     jsPlumbConnectPorts: function(instance, node1, port1, node2, port2) {
+    //         // declare some common values:
+    //         var color = "gray";
+    //         var arrowCommon = { foldback: 0.8, fillStyle: color, width: 5 },
+    //             // use three-arg spec to create two different arrows with the common values:
+    //             overlays = [
+    //                 ["Arrow", { location: 0.8 }, arrowCommon],
+    //                 ["Arrow", { location: 0.2, direction: -1 }, arrowCommon]
+    //             ];
+
+    //         var uuid_source = node1.getAttribute("id") + "-" + port1;
+    //         var uuid_target = node2.getAttribute("id") + "-" + port2;
+
+    //         instance.connect({ uuids: [uuid_source, uuid_target] });
+    //     }
+    // });
+
 
     window.sregister('Shift.AndNode', AndNode);
 

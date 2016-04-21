@@ -36,11 +36,13 @@
                 var instance = jsPlumb.getInstance({
                     Connector: ["Bezier", { curviness: 50 }],
                     DragOptions: { cursor: "pointer", zIndex: 2000 },
-                    PaintStyle: { strokeStyle: color, lineWidth: 2 },
-                    EndpointStyle: { radius: 5, fillStyle: color },
+                    PaintStyle: { strokeStyle: '#2EFDF6', lineWidth: 1 },
+                    EndpointStyle: {
+                        radius: 4,
+                    },
                     HoverPaintStyle: { strokeStyle: "#7073EB" },
                     EndpointHoverStyle: { fillStyle: "#7073EB" },
-                    Container: "flow-panel"
+                    Container: this.id+"_desk"
                 });
                 _this.jsPlumbInstance = instance;
 
@@ -81,12 +83,12 @@
             });
 
 
-    //     jsPlumb.fire("jsFlowLoaded", instance);
+            //     jsPlumb.fire("jsFlowLoaded", instance);
 
-    //     instance.bind("connection", function(info) {
-    //         //  .. update your model in here, maybe.
-    //         console.log(info);
-    //     });
+            //     instance.bind("connection", function(info) {
+            //         //  .. update your model in here, maybe.
+            //         console.log(info);
+            //     });
         }
 
     });
