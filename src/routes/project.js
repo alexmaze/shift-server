@@ -1,10 +1,6 @@
-var express = require('express');
-var router = express.Router();
+import express from 'express';
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+let router = express.Router();
 
 router.get('/:id', function(req, res) {
     console.log('get project: ' + req.params.id);
@@ -18,8 +14,6 @@ router.get('/:id', function(req, res) {
 
 router.post('/deploy', function(req, res) {
     console.log('deploy:', JSON.stringify(req.body));
-
-    console.log(req.body.nodes);
     res.json(req.body);
 });
 

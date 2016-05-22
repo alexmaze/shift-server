@@ -1,6 +1,4 @@
 node_modules
-public/libs/bower
-.idea
-public/**/*.css
-public/dist
 .DS_Store
+./app
+
