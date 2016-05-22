@@ -17,9 +17,7 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/deploy', function(req, res) {
-    console.log('post news:');
-    console.log(req.get('Content-Type'));
-    console.log(JSON.stringify(req.body));
+    console.log('deploy:', JSON.stringify(req.body));
 
     console.log(req.body.nodes);
     res.json(req.body);
