@@ -16,7 +16,7 @@ var reload = browserSync.reload;
 // 服务器参数
 var server_env = {
     'NODE_ENV': 'development',
-    'port': '4000',
+    'PORT': '4000',
     'DEBUG': 'shift-web:*'
 };
 

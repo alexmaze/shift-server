@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var swig = require('swig');
 
-var users = require('./routes/users');
+var user = require('./routes/user');
+var project = require('./routes/project');
 
 var app = express();
 
@@ -18,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/users', users);
-
+app.use('/api/user', user);
+app.use('/api/project', project);
 
 module.exports = app;
