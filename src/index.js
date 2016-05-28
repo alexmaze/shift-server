@@ -7,6 +7,7 @@ import multer from 'multer';
 import logger from 'morgan';
 
 import projectRoute from './routes/project';
+import hardwareRoute from './routes/hardware.js';
 
 const PORT = 4000;
 
@@ -21,6 +22,7 @@ app.use(cookieParser());
 
 // 注册路由
 app.use('/api/project', projectRoute);
+app.use('/api/hardware', hardwareRoute);
 
 app.listen(PORT, () => {
   console.log('server is listening @', PORT);

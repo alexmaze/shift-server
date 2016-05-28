@@ -8,7 +8,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 let router = _express2.default.Router();
 
-router.get('/:id', function (req, res) {
+router.get('/get/:id', (req, res) => {
     console.log('get project: ' + req.params.id);
     var project = {
         title: '***',
@@ -18,7 +18,7 @@ router.get('/:id', function (req, res) {
     res.json(project);
 });
 
-router.post('/deploy', function (req, res) {
+router.post('/deploy', (req, res) => {
     console.log('deploy:', JSON.stringify(req.body));
     res.json(req.body);
 });
