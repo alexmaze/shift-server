@@ -4,8 +4,8 @@ import cookieParser from 'cookie-parser'
 import multer from 'multer'
 import logger from 'morgan'
 import session from 'express-session'
-import wrench from 'wrench'
 import path from 'path'
+import fs from 'fs-extra'
 
 import { db } from './db'
 import { auth } from './middlewares/auth'
@@ -37,13 +37,11 @@ app.use(session({
 app.use(auth)
 
 // 自动注册路由
-wrench.readdirSyncRecursive(`${__dirname}/routes`)
-  .filter((path) => (/\.(js|coffee)$/i)
-  .test(path))
-  .map((path) => {
-    let routePrefix = path.substring(0, path.length - 3)
-    console.log('Load', routePrefix, path)
-    app.use(`/api/${routePrefix}`, require(`${__dirname}/routes/${path}`).default)
+fs.walk(`${__dirname}/routes`)
+  .on('data', item => {
+    if (path.extname(item.path) === '.js') {
+      app.use(`/api/${path.basename(item.path, '.js')}`, require(item.path).default)
+    }
   })
 
 // 启动
