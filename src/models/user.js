@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 export let UserScheme = new mongoose.Schema({
   name: {
@@ -17,6 +17,6 @@ export let UserScheme = new mongoose.Schema({
   avatarUrl: String,
   gender: Boolean,
   created: Date
-});
+})
 
-export let User = mongoose.model('User', UserScheme);
+export let User = mongoose.model('User', UserScheme)

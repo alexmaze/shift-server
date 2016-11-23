@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./app/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --debug ./dist/index.js",
+    "build": "babel src --out-dir dist --watch --source-maps",
+    "lint": "eslint ./src"
   },
   "repository": {
     "type": "git",
@@ -18,25 +19,21 @@
   },
   "homepage": "https://github.com/yanhao1991/shift-server#readme",
   "devDependencies": {
-    "babel-cli": "^6.9.0",
-    "babel-plugin-transform-flow-strip-types": "^6.8.0",
-    "babel-preset-es2015-node5": "^1.2.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^2.0.0",
-    "gulp-live-server": "0.0.29",
-    "gulp-shell": "^0.5.2",
-    "gulp-watch": "^4.3.5",
-    "rimraf": "^2.5.2",
-    "run-sequence": "^1.2.0"
+    "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.1",
+    "babel-preset-latest-node6": "^0.1.0",
+    "eslint": "^3.10.2",
+    "nodemon": "^1.11.0"
   },
   "dependencies": {
-    "body-parser": "^1.15.1",
-    "cookie-parser": "^1.4.2",
-    "express": "^4.13.4",
-    "express-session": "^1.14.0",
-    "mongoose": "^4.5.9",
+    "async": "^2.1.4",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.6.8",
     "morgan": "^1.7.0",
-    "multer": "^1.1.0"
+    "multer": "^1.2.0",
+    "wrench": "^1.5.9"
   }
 }

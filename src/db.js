@@ -1,9 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
+mongoose.Promise = global.Promise
 
-mongoose.connect('mongodb://localhost/cdi_shift');
+mongoose.connect('mongodb://localhost/smartnode')
 
-export let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+export const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function (callback) {
-  console.log('mongodb opened!');
-});
+  console.log('数据库连接成功')
+})
