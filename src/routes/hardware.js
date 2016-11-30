@@ -50,7 +50,7 @@ router.get('/download/:id', (req, res) => {
   const theRange = range.substr(6).split('-')
   const start = parseInt(theRange[0])
   const end = parseInt(theRange[1])
-  const length = end - start
+  const length = end - start + 1
 
   let data = Buffer.alloc(length)
   fs.open(addr, 'r', (err, fd) => {
