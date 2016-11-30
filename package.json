@@ -28,7 +28,9 @@
   "dependencies": {
     "async": "^2.1.4",
     "body-parser": "^1.15.2",
+    "buffer-crc32": "^0.2.13",
     "cookie-parser": "^1.4.3",
+    "crc": "^3.4.3",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "fs-extra": "^1.0.0",

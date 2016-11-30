@@ -1,5 +1,6 @@
 import express from 'express'
 import fs from 'fs-extra'
+import crc32 from 'buffer-crc32'
 
 let router = express.Router()
 
@@ -51,20 +52,24 @@ router.get('/download/:id', (req, res) => {
   const end = parseInt(theRange[1])
   const length = end - start
 
-  let data = new Buffer(length)
+  let data = Buffer.alloc(length)
   fs.open(addr, 'r', (err, fd) => {
     if (err) {
       return res.status(500).json(err)
     }
-
     fs.read(fd, data, 0, length, start, (err, bytesRead, buffer) => {
       if (err) {
         return res.status(500).json(err)
       }
       res.removeHeader('date')
-      return res.status(206).end(buffer)
+      const crcBuffer = crc32(buffer)
+      // console.log(buffer)
+      // console.log(crcBuffer)
+      // console.log(Buffer.concat([buffer, crcBuffer]))
+      return res.status(206).end(Buffer.concat([buffer, crcBuffer]))
     })
   })
+
 })
 
 /**
