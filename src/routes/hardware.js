@@ -1,4 +1,5 @@
 import express from 'express'
+import fs from 'fs-extra'
 
 let router = express.Router()
 
@@ -35,13 +36,35 @@ router.get('/download/:id', (req, res) => {
   let id = req.params.id
 
   // 获取最新硬件地址
+
   let addr = getImagePath(id)
   if (addr === undefined) {
     res.status(404).end()
     return
   }
+  const range = req.headers.range
+  if (!range) {
+    return res.download(addr)
+  }
+  const theRange = range.substr(6).split('-')
+  const start = parseInt(theRange[0])
+  const end = parseInt(theRange[1])
+  const length = end - start
 
-  res.download(addr)
+  let data = new Buffer(length)
+  fs.open(addr, 'r', (err, fd) => {
+    if (err) {
+      return res.status(500).json(err)
+    }
+
+    fs.read(fd, data, 0, length, start, (err, bytesRead, buffer) => {
+      if (err) {
+        return res.status(500).json(err)
+      }
+      res.removeHeader('date')
+      return res.status(206).end(buffer)
+    })
+  })
 })
 
 /**
@@ -67,6 +90,7 @@ router.get('/status', (req, res) => {
 })
 
 router.post('/image', (req, res) => {
+  console.log(req.body)
   hdImage[req.body.id] = req.body.image
   res.end()
 })

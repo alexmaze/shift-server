@@ -15,34 +15,44 @@ const PORT = 4000
 const app = express()
 const upload = multer()
 
-// trust first proxy
-app.set('trust proxy', 1)
+app.disable('x-powered-by')
+
+// // trust first proxy
+// app.set('trust proxy', 1)
 
 // 中间件
-app.use(express.static(path.join(__dirname, '../public')))
+// app.use(express.static(path.join(__dirname, '../public')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded( { extended: true } ))
 app.use(cookieParser())
 
-// session 注入
-app.use(session({
+const sessionRouter = session({
   secret: 'eWG*9%vlX^5hkaUm4Jnz^3gwV63d18BP',
   cookie: { maxAge: 60 * 1000 * 60 * 2 },
   resave: true,
   saveUninitialized: true
-}))
+})
+app.use('/api/user', sessionRouter)
+app.use('/api/project', sessionRouter)
+app.use('/api/session', sessionRouter)
 
 // 授权检测
 app.use(auth)
 
-// 自动注册路由
-fs.walk(`${__dirname}/routes`)
-  .on('data', item => {
-    if (path.extname(item.path) === '.js') {
-      app.use(`/api/${path.basename(item.path, '.js')}`, require(item.path).default)
-    }
-  })
+app.use('/api/user', require('./routes/user').default)
+app.use('/api/project', require('./routes/project').default)
+app.use('/api/session', require('./routes/session').default)
+
+app.use('/api/hardware', require('./routes/hardware').default)
+
+// // 自动注册路由
+// fs.walk(`${__dirname}/routes`)
+//   .on('data', item => {
+//     if (path.extname(item.path) === '.js') {
+//       app.use(`/api/${path.basename(item.path, '.js')}`, require(item.path).default)
+//     }
+//   })
 
 // 启动
 app.listen(PORT, () => {
