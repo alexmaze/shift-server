@@ -53,6 +53,12 @@ router.get('/download/:id', (req, res) => {
   const length = end - start + 1
 
   let data = Buffer.alloc(length)
+
+  let download_tail = Buffer.alloc(4)
+  download_tail[0] = 0xA5
+  download_tail[1] = 0xA5
+  download_tail[2] = 0xA5
+  download_tail[3] = 0xA5
   fs.open(addr, 'r', (err, fd) => {
     if (err) {
       return res.status(500).json(err)
@@ -66,7 +72,7 @@ router.get('/download/:id', (req, res) => {
       // console.log(buffer)
       // console.log(crcBuffer)
       // console.log(Buffer.concat([buffer, crcBuffer]))
-      return res.status(206).end(Buffer.concat([buffer, crcBuffer]))
+      return res.status(206).end(Buffer.concat([buffer, crcBuffer, download_tail]))
     })
   })
 
