@@ -22,7 +22,7 @@ app.disable('x-powered-by')
 
 // 中间件
 // app.use(express.static(path.join(__dirname, '../public')))
-app.use(logger('dev'))
+app.use(logger('[:date[iso]] :method :url :status :response-time ms - :res[content-length] :remote-addr'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded( { extended: true } ))
 app.use(cookieParser())
