@@ -120,7 +120,7 @@ function checkState(id) {
 }
 
 function getImagePath(id) {
-  if (hdImage.hasOwnProperty(id)) {
+  if (hdImage[id] != undefined) {
     return hdImage[id].path
   } else {
     return undefined
