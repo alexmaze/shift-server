@@ -7,6 +7,7 @@ let storage = multer.diskStorage({
     //TODO:文件区分目录存放
     //获取文件MD5，重命名，添加后缀,文件重复会直接覆盖
   filename: function (req, file, cb) {
+    console.log('hahahahahah###')
     var fileFormat =(file.originalname).split('.')
     cb(null, file.fieldname + '-' + Date.now() + '.' + fileFormat[fileFormat.length - 1])
   }

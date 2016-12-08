@@ -21,7 +21,7 @@ app.disable('x-powered-by')
 // app.set('trust proxy', 1)
 
 // 中间件
-// app.use(express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.join(__dirname, '../public')))
 app.use(logger('[:date[iso]] :method :url :status :response-time ms - :res[content-length] :remote-addr'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded( { extended: true } ))
@@ -43,16 +43,7 @@ app.use(auth)
 app.use('/api/user', require('./routes/user').default)
 app.use('/api/project', require('./routes/project').default)
 app.use('/api/session', require('./routes/session').default)
-
 app.use('/api/hardware', require('./routes/hardware').default)
-
-// // 自动注册路由
-// fs.walk(`${__dirname}/routes`)
-//   .on('data', item => {
-//     if (path.extname(item.path) === '.js') {
-//       app.use(`/api/${path.basename(item.path, '.js')}`, require(item.path).default)
-//     }
-//   })
 
 // 启动
 app.listen(PORT, () => {

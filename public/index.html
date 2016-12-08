@@ -1,1 +1,65 @@
-<p>shift api server!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SmartNode Api Tests</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Status</h3>
+    </div>
+    <div class="panel-body">
+      <h5 class="text-muted">Online Nodes</h5>
+      <pre class="well online">
+      </pre>
+      <h5 class="text-muted">Images wait to download</h5>
+      <pre class="well images">
+      </pre>
+      <button id="refresh" class="btn btn-default">Refresh</button>
+    </div>
+  </div>
+  <div class="panel panel-info mock-online">
+    <div class="panel-heading">
+      <h3 class="panel-title">Mock Node Online Report</h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="node_id">Node ID</label>
+        <input type="text" class="form-control" id="node_id" placeholder="4:1.1.1.1">
+      </div>
+      <button id="report" type="submit" class="btn btn-default">Report</button>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Post New Image</h3>
+    </div>
+    <div class="panel-body">
+      <form id="uploadForm" action="/api/hardware/upload" method="post"
+        target="id_iframe"
+        enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="node_id">Node ID</label>
+          <input type="text" class="form-control" id="node_id" name="node_id" placeholder="4:1.1.1.1">
+        </div>
+        <div class="form-group">
+          <label for="file">Image File</label>
+          <input type="file" id="file" name="file">
+          <span id="progress"></span>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+  </div>
+  <iframe id="id_iframe" name="id_iframe" style="display: none;"></iframe>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>

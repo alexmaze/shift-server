@@ -3,7 +3,11 @@
   "env": {
     "es6": true,
     "node": true,
+    "browser": true,
     "shelljs": true
+  },
+  "globals": {
+    "$": true
   },
   "parser": "babel-eslint",
   "parserOptions": {

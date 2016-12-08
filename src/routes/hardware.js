@@ -1,6 +1,8 @@
 import express from 'express'
 import fs from 'fs-extra'
 import crc32 from 'buffer-crc32'
+import multer from 'multer'
+import { upload } from '../utils/file-upload'
 
 let router = express.Router()
 
@@ -104,6 +106,19 @@ router.post('/image', (req, res) => {
   console.log(req.body)
   hdImage[req.body.id] = req.body.image
   res.end()
+})
+
+
+router.post('/upload', upload.single('file'), (req, res) => {
+  if (req.file) {
+    hdImage[req.body.node_id] = {
+      size: req.file.size,
+      path: 'upload/' + req.file.filename
+    }
+    return res.json(req.file)
+  } else {
+    return res.status(500).end()
+  }
 })
 
 //===============================================
