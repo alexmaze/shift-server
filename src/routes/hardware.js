@@ -113,7 +113,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
   if (req.file) {
     hdImage[req.body.node_id] = {
       size: req.file.size,
-      path: 'upload/' + req.file.filename
+      path: 'public/upload/' + req.file.filename
     }
     return res.json(req.file)
   } else {
