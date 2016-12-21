@@ -8,8 +8,12 @@ let router = express.Router()
 
 // 保存硬件注册时间
 let hdReport = {}
-  // 保存新固件信息
+// 保存新固件信息
 let hdImage = {}
+// 保存硬件临时信息
+let hdTempStore = {}
+// 保存硬件从模块信息
+let hdComponents = {}
 
 /**
  * 硬件心跳接口，报告id给服务器，统计状态
@@ -92,13 +96,43 @@ router.get('/finish/:id', (req, res) => {
   res.end()
 })
 
+router.post('/store/:id', (req, res) => {
+  let id = req.params.id
+  hdTempStore[id] = {
+    updated: Date.now(),
+    value: req.body
+  }
+  res.status(200).end()
+})
+
+router.get('/store/:id', (req, res) => {
+  let id = req.params.id
+  let data = hdTempStore[id]
+  if (data && ((data.updated - Date.now()) < 120*1000) ) {
+    res.json(data.value).end()
+  } else {
+    res.status(404).end()
+  }
+})
+
+router.post('/components/:id', (req, res) => {
+  let id = req.params.id
+  hdComponents[id] = {
+    updated: Date.now(),
+    value: req.body
+  }
+  res.status(200).end()
+})
+
 //-----------------------------------------------
 
 router.get('/status', (req, res) => {
   console.log(hdReport, hdImage)
   res.json({
     hdReport,
-    hdImage
+    hdImage,
+    hdTempStore,
+    hdComponents
   }).end()
 })
 
