@@ -78,6 +78,7 @@ router.get('/download/:id', (req, res) => {
       // console.log(buffer)
       // console.log(crcBuffer)
       // console.log(Buffer.concat([buffer, crcBuffer]))
+      fs.close(fd)
       return res.status(206).end(Buffer.concat([buffer, crcBuffer, download_tail]))
     })
   })
