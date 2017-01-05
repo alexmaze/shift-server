@@ -156,6 +156,11 @@ router.post('/upload', upload.single('file'), (req, res) => {
   }
 })
 
+router.post('/build', (req, res) => {
+  console.log(req.body)
+  res.json(req.body)
+})
+
 //===============================================
 function checkState(id) {
   if (hdImage.hasOwnProperty(id)) {
