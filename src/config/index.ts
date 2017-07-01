@@ -1,3 +1,5 @@
+import { join } from "path"
+
 type LoggerLevel = "info" | "error" | "debug"
 
 interface IAppConfig {
@@ -29,10 +31,13 @@ interface IAppConfig {
   }
 }
 
-let config: IAppConfig = require("./application.json")
+const prodConfigPath = join(__dirname, "../../config/application.json")
+const devConfigPath = join(__dirname, "../../config/application.development.json")
+
+let config: IAppConfig = require(prodConfigPath)
 if (process.env.NODE_ENV === "development") {
   console.log("Using development configuration.")
-  config = require("./application.development.json")
+  config = require(devConfigPath)
 }
 
 export default config

@@ -1,10 +1,10 @@
 import * as mongoose from "mongoose"
 import * as async from "async"
 
-export function pageQuery<T>(
+export function pageQuery(
   page: number,
   pageSize: number,
-  Model: mongoose.Model<T>,
+  Model: mongoose.Model<any>,
   populate,
   queryParams,
   sortParams,

@@ -21,7 +21,10 @@ export function initDB() {
 function buildConnectionUrl() {
   const dbconfig = AppConfig.mongo
   const ret = ["mongodb://"]
-  ret.push(dbconfig.user, ":", dbconfig.password, "@")
+  if (dbconfig.password) {
+    ret.push(dbconfig.user, ":", dbconfig.password, "@")
+    ret.push(":", dbconfig.password)
+  }
   ret.push(dbconfig.host, "/")
   ret.push(dbconfig.database)
   return ret.join("")

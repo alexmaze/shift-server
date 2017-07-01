@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon --watch dist --debug dist/index.js",
     "lint": "tslint src/**/*.ts",
-    "build": "npm run lint && tsc",
-    "build:live": "tsc --watch",
+    "build": "npm run lint && tsc --pretty",
+    "build:live": "tsc --watch --pretty",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
