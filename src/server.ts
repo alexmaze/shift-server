@@ -6,6 +6,7 @@ import * as path from "path"
 
 import AppConfig from "./config"
 import { AuthMiddleware, SessionMiddleware } from "./middlewares"
+import { SessionController } from "./controllers/session"
 
 const app = express()
 app.disable("x-powered-by")
@@ -22,7 +23,10 @@ app.use(SessionMiddleware)
 app.use(AuthMiddleware)
 
 // 路由
-app.use("/api/session", require("./routes/session").default)
+app.use("/api/session", SessionController)
+// app.use("/api/user", require("./routes/user").default)
+// app.use("/api/project", require("./routes/project").default)
+// app.use("/api/hardware", require("./routes/hardware").default)
 
 // 启动
 const { port, address } = AppConfig.server

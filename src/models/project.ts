@@ -1,10 +1,18 @@
 import * as mongoose from "mongoose"
+import { IUser } from "./user"
 
-export let ProjectScheme = new mongoose.Schema({
+export interface IProject {
+  name: string
+  author: IUser
+  content: string
+  created_at: Date
+}
+
+export const ProjectScheme = new mongoose.Schema({
   name: String,
   author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   content: String,
-  created: Date
+  created_at: Date
 })
 
-export let Project = mongoose.model("Project", ProjectScheme)
+export const Project = mongoose.model("Project", ProjectScheme)

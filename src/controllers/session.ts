@@ -1,12 +1,12 @@
-import * as express from "express"
 import { User, IUser } from "../models"
+import { newController } from "../utils/controller-factory"
 
-let router = express.Router()
+export const SessionController = newController()
 
 /**
  * 登录
  */
-router.put("/", (req, res) => {
+SessionController.put("/", (req, res) => {
   if (!req.body || !req.body.name || !req.body.password) {
     res.status(403).end()
   }
@@ -27,7 +27,7 @@ router.put("/", (req, res) => {
 /**
  * 注销登录
  */
-router.delete("/", (req, res) => {
+SessionController.delete("/", (req, res) => {
   req.session.user = undefined
   res.status(200).end()
 })
@@ -35,12 +35,10 @@ router.delete("/", (req, res) => {
 /**
  * 获取当前session信息
  */
-router.get("/", (req, res) => {
+SessionController.get("/", (req, res) => {
   if (req.session.user) {
     res.json(req.session.user)
   } else {
     res.status(401).end()
   }
 })
-
-export default router

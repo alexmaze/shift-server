@@ -6,7 +6,7 @@ export interface IUser {
   password: string
   avatarUrl: string
   gender: boolean
-  created_at: number
+  created_at: Date
 }
 
 export const UserScheme = new mongoose.Schema({

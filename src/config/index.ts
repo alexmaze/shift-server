@@ -31,6 +31,7 @@ interface IAppConfig {
 
 let config: IAppConfig = require("./application.json")
 if (process.env.NODE_ENV === "development") {
+  console.log("Using development configuration.")
   config = require("./application.development.json")
 }
 
