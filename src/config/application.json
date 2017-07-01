@@ -1,0 +1,31 @@
+{
+  "name": "shift-server",
+  "server": {
+    "port": 80,
+    "public": "../public",
+    "address": "0.0.0.0"
+  },
+  "logger": {
+    "config": "[:date[iso]] :method :url :status :response-time ms - :res[content-length] :remote-addr",
+    "level": "info"
+  },
+  "mongo": {
+    "host": "localhost:27017",
+    "user": "root",
+    "password": "",
+    "database": "shift",
+    "mode": "Strong",
+    "pool": 5,
+    "timeout": 5
+  },
+  "session": {
+    "secret": "eWG*9%vlX^5hkaUm4Jnz^3gwV63d18BP",
+    "cookie": {
+      "maxAge": 7200000,
+      "httpOnly": true
+    },
+    "resave": true,
+    "name": "SHIFT_SESSION",
+    "saveUninitialized": true
+  }
+}

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import * as mongoose from "mongoose"
 
 export let UserScheme = new mongoose.Schema({
   name: {
@@ -19,4 +19,4 @@ export let UserScheme = new mongoose.Schema({
   created: Date
 })
 
-export let User = mongoose.model('User', UserScheme)
+export const User = mongoose.model("User", UserScheme)
