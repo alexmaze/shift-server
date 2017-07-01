@@ -1,28 +1,31 @@
 import * as express from "express"
-import { User } from "../db/models"
+import { User, IUser } from "../models"
 
-const router = express.Router()
+let router = express.Router()
 
 /**
  * 登录
  */
-router.put("/", async (req, res) => {
+router.put("/", (req, res) => {
   if (!req.body || !req.body.name || !req.body.password) {
     res.status(403).end()
   }
-  const datas = await User.find({ name: req.body.name, password: req.body.password }).exec()
-
-  if (!datas || datas.length < 0) {
-    res.status(403).end()
-  }
-
-  const user = { ...datas[0].toObject(), password: undefined }
-  req.session.user = user
-  res.json(user)
+  User.findOne({ name: req.body.name, password: req.body.password }).exec().then((ret) => {
+    if (ret) {
+      const user = ret.toObject() as IUser
+      user.password = undefined
+      req.session.user = user
+      res.json(user)
+    } else {
+      res.status(403).end()
+    }
+  }, (err) => {
+    res.status(500).json(err)
+  })
 })
 
 /**
- * 注销
+ * 注销登录
  */
 router.delete("/", (req, res) => {
   req.session.user = undefined
@@ -30,7 +33,7 @@ router.delete("/", (req, res) => {
 })
 
 /**
- * 检查 session
+ * 获取当前session信息
  */
 router.get("/", (req, res) => {
   if (req.session.user) {

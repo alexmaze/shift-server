@@ -1,6 +1,15 @@
 import * as mongoose from "mongoose"
 
-export let UserScheme = new mongoose.Schema({
+export interface IUser {
+  name: string
+  email: string
+  password: string
+  avatarUrl: string
+  gender: boolean
+  created_at: number
+}
+
+export const UserScheme = new mongoose.Schema({
   name: {
     type: String,
     require: true
@@ -16,7 +25,7 @@ export let UserScheme = new mongoose.Schema({
   },
   avatarUrl: String,
   gender: Boolean,
-  created: Date
+  created_at: Date
 })
 
 export const User = mongoose.model("User", UserScheme)
