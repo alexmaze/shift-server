@@ -16,9 +16,6 @@ interface IAppConfig {
     user: string
     password: string
     database: string
-    mode: string
-    pool: number
-    timeout: number
   }
   session: {
     secret: string

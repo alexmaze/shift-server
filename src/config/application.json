@@ -13,10 +13,7 @@
     "host": "localhost:27017",
     "user": "root",
     "password": "",
-    "database": "shift",
-    "mode": "Strong",
-    "pool": 5,
-    "timeout": 5
+    "database": "shift"
   },
   "session": {
     "secret": "eWG*9%vlX^5hkaUm4Jnz^3gwV63d18BP",
