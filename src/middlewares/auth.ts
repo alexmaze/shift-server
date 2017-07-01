@@ -1,7 +1,10 @@
-export function AuthMiddleware(req, res, next) {
+import { getLogger } from "log4js"
 
+const logger = getLogger("middleware auth")
+
+export function AuthMiddleware(req, res, next) {
   if (req.session && req.session.user) {
-    console.log("登录的用户", req.session.user.name)
+    logger.debug("login user", req.session.user.name)
   }
   next()
 }

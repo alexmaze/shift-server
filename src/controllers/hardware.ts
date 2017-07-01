@@ -2,6 +2,9 @@ import fs from "fs-extra"
 import crc32 from "buffer-crc32"
 import { upload } from "../utils/file-upload"
 import { newController } from "../utils/controller-factory"
+import { getLogger } from "log4js"
+
+const logger = getLogger("HardwareController")
 
 export const HardwareController = newController()
 
@@ -74,9 +77,9 @@ HardwareController.get("/download/:id", (req, res) => {
       }
       res.removeHeader("date")
       const crcBuffer = crc32(buffer)
-      // console.log(buffer)
-      // console.log(crcBuffer)
-      // console.log(Buffer.concat([buffer, crcBuffer]))
+      // logger.debug(buffer)
+      // logger.debug(crcBuffer)
+      // logger.debug(Buffer.concat([buffer, crcBuffer]))
       fs.close(fd)
       return res.status(206).end(Buffer.concat([buffer, crcBuffer, downloadTail]))
     })
@@ -127,7 +130,7 @@ HardwareController.post("/components/:id", (req, res) => {
 // -----------------------------------------------
 
 HardwareController.get("/status", (req, res) => {
-  console.log(hdReport, hdImage)
+  logger.debug("status", hdReport, hdImage)
   res.json({
     hdReport,
     hdImage,
@@ -137,7 +140,7 @@ HardwareController.get("/status", (req, res) => {
 })
 
 HardwareController.post("/image", (req, res) => {
-  console.log(req.body)
+  logger.debug("image", req.body)
   hdImage[req.body.id] = req.body.image
   res.end()
 })
@@ -155,7 +158,7 @@ HardwareController.post("/upload", upload.single("file"), (req, res) => {
 })
 
 HardwareController.post("/build", (req, res) => {
-  console.log(req.body)
+  logger.debug("build", req.body)
   res.json(req.body)
 })
 

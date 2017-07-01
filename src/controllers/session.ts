@@ -1,5 +1,8 @@
 import { User, IUser } from "../models"
 import { newController } from "../utils/controller-factory"
+import { getLogger } from "log4js"
+
+const logger = getLogger("SessionController")
 
 export const SessionController = newController()
 

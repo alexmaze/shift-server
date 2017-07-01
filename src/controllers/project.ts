@@ -1,5 +1,8 @@
 import { Project, IProject } from "../models/project.js"
 import { newController } from "../utils/controller-factory"
+import { getLogger } from "log4js"
+
+const logger = getLogger("ProjectController")
 
 export const ProjectController = newController()
 
@@ -7,7 +10,7 @@ export const ProjectController = newController()
  * 发布项目固件
  */
 ProjectController.post("/deploy", (req, res) => {
-  console.log("deploy:", JSON.stringify(req.body))
+  logger.debug("deploy:", JSON.stringify(req.body))
   res.json(req.body)
 })
 
@@ -15,7 +18,7 @@ ProjectController.post("/deploy", (req, res) => {
  * 新建项目
  */
 ProjectController.post("/", (req, res) => {
-  console.log("create  project", req.body)
+  logger.debug("create  project", req.body)
   const newProj = new Project(req.body)
   newProj.set("created_at", new Date())
   newProj.set("author", req.session.user._id)
@@ -33,7 +36,7 @@ ProjectController.post("/", (req, res) => {
  * * 支持部分更新，_id 为必填
  */
 ProjectController.patch("/", (req, res) => {
-  console.log("update project", req.body)
+  logger.debug("update project", req.body)
 
   Project.findById(req.body._id, (err, proj) => {
     if (err) {
@@ -55,7 +58,7 @@ ProjectController.patch("/", (req, res) => {
  * 获取项目
  */
 ProjectController.get("/:id", (req, res) => {
-  console.log("find proj", req.params.id)
+  logger.debug("find proj", req.params.id)
   Project.findById(req.params.id, (err, proj) => {
     if (err) {
       res.status(404).json(err)
@@ -69,7 +72,7 @@ ProjectController.get("/:id", (req, res) => {
  * 获取列表
  */
 ProjectController.get("/", (req, res) => {
-  console.log("find projs")
+  logger.debug("find projs")
   Project.find().populate("author").exec((err, projs) => {
     if (err) {
       res.status(500).json(err)

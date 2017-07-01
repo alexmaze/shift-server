@@ -1,5 +1,8 @@
 import { upload } from "../utils/file-upload"
 import { newController } from "../utils/controller-factory"
+import { getLogger } from "log4js"
+
+const logger = getLogger("FileController")
 
 export const FileController = newController()
 
@@ -10,4 +13,4 @@ FileController.post("/", upload.single("file"), (req, res) => {
     return res.status(500).end()
   }
 })
-console.log(process.cwd() + "/public/upload")
+logger.debug(process.cwd() + "/public/upload")

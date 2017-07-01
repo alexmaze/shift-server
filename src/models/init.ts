@@ -1,18 +1,21 @@
 import * as mongoose from "mongoose"
 import AppConfig from "../config"
+import { getLogger } from "log4js"
+
+const logger = getLogger("db init")
 
 export function initDB() {
   mongoose.connect(buildConnectionUrl())
   const connection = mongoose.connection
 
   connection.on("error", (error) => {
-    console.error("数据库错误:", error)
+    logger.error("mongodb error:", error)
   })
   connection.on("connected", () => {
-    console.log("数据库连接成功")
+    logger.debug("mongodb connected")
   })
   connection.on("disconnected", () => {
-    console.log("数据库断开连接")
+    logger.warn("mongodb disconnected")
   })
 
   return connection

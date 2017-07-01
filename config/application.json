@@ -5,9 +5,9 @@
     "public": "../public",
     "address": "0.0.0.0"
   },
-  "logger": {
-    "config": "[:date[iso]] :method :url :status :response-time ms - :res[content-length] :remote-addr",
-    "level": "info"
+  "morgan": "[:date[iso]] :method :url :status :response-time ms - :res[content-length] :remote-addr",
+  "log4js": {
+    "level": "INFO"
   },
   "mongo": {
     "host": "localhost:27017",

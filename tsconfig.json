@@ -10,7 +10,7 @@
     "preserveConstEnums": true,
     "experimentalDecorators":true,
     "emitDecoratorMetadata": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "sourceMap": true,
     "outDir": "dist"
   },

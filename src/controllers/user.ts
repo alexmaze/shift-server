@@ -1,6 +1,9 @@
 import { User, IUser } from "../models"
 import { newController } from "../utils/controller-factory"
 import { pageQuery } from "../utils/page-query"
+import { getLogger } from "log4js"
+
+const logger = getLogger("UserController")
 
 export const UserController = newController()
 
@@ -8,7 +11,7 @@ export const UserController = newController()
  * 新建用户
  */
 UserController.post("/", (req, res) => {
-  console.log("create user", req.body)
+  logger.debug("create user", req.body)
   let newUser = new User(req.body)
   newUser.set("created_at", new Date())
   newUser.save((err) => {
@@ -50,7 +53,7 @@ UserController.patch("/:id", (req, res) => {
  * 获取用户
  */
 UserController.get("/:id", (req, res) => {
-  console.log("find user", req.params.id)
+  logger.debug("find user", req.params.id)
   User.findById(req.params.id, (err, ret) => {
     if (err) {
       res.status(404).json(err)
