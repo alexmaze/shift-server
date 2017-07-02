@@ -2,7 +2,7 @@ import * as mongoose from "mongoose"
 import AppConfig from "../config"
 import { getLogger } from "log4js"
 
-const logger = getLogger("db init")
+const logger = getLogger("[MONGODB]")
 
 export function initDB() {
   mongoose.connect(buildConnectionUrl())

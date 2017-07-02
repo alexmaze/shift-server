@@ -1,6 +1,6 @@
 import { getLogger } from "log4js"
 
-const logger = getLogger("middleware auth")
+const logger = getLogger("[AUTH]")
 
 export function AuthMiddleware(req, res, next) {
   if (req.session && req.session.user) {

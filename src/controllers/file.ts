@@ -2,7 +2,7 @@ import { upload } from "../utils/file-upload"
 import { newController } from "../utils/controller-factory"
 import { getLogger } from "log4js"
 
-const logger = getLogger("FileController")
+const logger = getLogger("[FileController]")
 
 export const FileController = newController()
 

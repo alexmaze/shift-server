@@ -3,7 +3,7 @@ import { newController } from "../utils/controller-factory"
 import { pageQuery } from "../utils/page-query"
 import { getLogger } from "log4js"
 
-const logger = getLogger("UserController")
+const logger = getLogger("[UserController]")
 
 export const UserController = newController()
 

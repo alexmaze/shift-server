@@ -1,7 +1,7 @@
 import { join } from "path"
 import { getLogger } from "log4js"
 
-const logger = getLogger("config")
+const logger = getLogger("[CONFIG]")
 
 const prodConfigPath = join(__dirname, "../../config/application.json")
 const devConfigPath = join(__dirname, "../../config/application.development.json")

@@ -2,7 +2,7 @@ import { Project, IProject } from "../models/project.js"
 import { newController } from "../utils/controller-factory"
 import { getLogger } from "log4js"
 
-const logger = getLogger("ProjectController")
+const logger = getLogger("[ProjectController]")
 
 export const ProjectController = newController()
 

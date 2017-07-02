@@ -29,7 +29,6 @@
     "@types/express-session": "^0.0.32",
     "@types/log4js": "^0.0.32",
     "@types/mongoose": "^4.7.8",
-    "@types/morgan": "^1.7.32",
     "@types/multer": "^1.3.2",
     "@types/node": "^7.0.8",
     "nodemon": "^1.11.0",
@@ -47,7 +46,8 @@
     "fs-extra": "^2.0.0",
     "log4js": "^1.1.1",
     "mongoose": "^4.8.6",
-    "morgan": "^1.8.1",
-    "multer": "^1.3.0"
+    "multer": "^1.3.0",
+    "on-finished": "^2.3.0",
+    "on-headers": "^1.0.1"
   }
 }

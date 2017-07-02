@@ -4,7 +4,7 @@ import { upload } from "../utils/file-upload"
 import { newController } from "../utils/controller-factory"
 import { getLogger } from "log4js"
 
-const logger = getLogger("HardwareController")
+const logger = getLogger("[HardwareController]")
 
 export const HardwareController = newController()
 
