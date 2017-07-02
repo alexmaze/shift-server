@@ -20,7 +20,6 @@ interface IAppConfig {
     public: string
     address: string
   }
-  morgan: string
   log4js: {
     level: string
   }

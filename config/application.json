@@ -5,7 +5,6 @@
     "public": "../public",
     "address": "0.0.0.0"
   },
-  "morgan": "[:date[iso]] :method :url :status :response-time ms - :res[content-length] :remote-addr",
   "log4js": {
     "level": "INFO"
   },
