@@ -1,0 +1,105 @@
+struct AndPatch {
+	char id[20];
+	char address[20];
+
+	bool inputs[2];
+	bool output;
+}
+
+struct ConditionalPatch {
+	char id[20];
+	char operation[2];
+	char address[20];
+
+	float inputs[2];
+	bool output;
+}
+
+struct NotPatch {
+	char id[20];
+	char address[20];
+
+	bool input;
+	bool output;
+}
+
+struct OrPatch {
+	char id[20];
+	char address[20];
+
+	bool inputs[2];
+	bool output;
+}
+
+struct AbsPatch {
+	char id[20];
+	char address[20];
+
+	float input;
+	float output;
+}
+
+struct LinearPatch {
+	char id[20];
+	char operation[3];
+	char address[20];
+
+	float inputs[2];
+	float output;
+}
+
+struct TrigonometryPatch {
+	char id[20];
+	char operation[3];
+	char address[20];
+
+	float input;
+	float output;
+}
+
+struct ArithmeticPatch {
+	char id[20];
+	char operation[1];
+	char address[20];
+
+	float inputs[2];
+	float output;
+}
+
+struct BitwisePatch {
+	char id[20];
+	char operation[2];
+	char address[20];
+
+	Input inputs[2];
+	Output outputs[1];
+}
+
+struct CompoundPatch {
+	char id[20];
+	char operation[2];
+	char address[20];
+
+	float inputs[2];
+	float output;
+}
+
+struct SwitchNode {
+	char id[20];
+	char operation[2];
+	char address[20];
+
+	bool output;
+}
+
+struct RGBNode {
+	char id[20];
+	char operation[2];
+	char address[20];
+
+	RGBInput inputs[8];
+}
+
+struct RGBInput {
+
+}

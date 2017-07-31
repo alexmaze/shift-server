@@ -1,0 +1,99 @@
+{
+    "nodes": [
+        {
+            "id": "16.1.1.1",
+            "type": {
+                "primary": "device",
+                "primaryLabel": "Device Nodes",
+                "secondary": "module",
+                "secondaryLabel": "Modules",
+                "tertiary": "rgb",
+                "tertiaryLabel": "RGB"
+            },
+            "label": "RGB",
+            "inputs": [
+                {
+                    "port": "on",
+                    "valueType": "boolean",
+                    "_label": "On",
+                    "type": "ref",
+                    "refId": "TMP1482558196028",
+                    "refOutputPort": "0"
+                }
+            ],
+            "outputs": [ ]
+        },
+        {
+            "id": "17.1.1.1",
+            "type": {
+                "primary": "device",
+                "primaryLabel": "Device Nodes",
+                "secondary": "switch",
+                "secondaryLabel": "Switchs",
+                "tertiary": "snap",
+                "tertiaryLabel": "Switch"
+            },
+            "label": "Switch",
+            "inputs": [ ],
+            "outputs": [
+                {
+                    "port": 0,
+                    "valueType": "boolean"
+                }
+            ]
+        },
+        {
+            "id": "TMP1482558196028",
+            "type": {
+                "primary": "virtual",
+                "primaryLabel": "Virtual Nodes",
+                "secondary": "logic",
+                "secondaryLabel": "Logic",
+                "tertiary": "and",
+                "tertiaryLabel": "AND"
+            },
+            "label": "AND",
+            "inputs": [
+                {
+                    "port": 0,
+                    "type": "ref",
+                    "refId": "17.1.1.1",
+                    "refOutputPort": "0",
+                    "valueType": "boolean"
+                },
+                {
+                    "port": 1,
+                    "type": "ref",
+                    "refId": "17.1.1.2",
+                    "refOutputPort": "0",
+                    "valueType": "boolean"
+                }
+            ],
+            "outputs": [
+                {
+                    "port": 0,
+                    "valueType": "boolean"
+                }
+            ]
+        },
+        {
+            "id": "17.1.1.2",
+            "type": {
+                "primary": "device",
+                "primaryLabel": "Device Nodes",
+                "secondary": "switch",
+                "secondaryLabel": "Switchs",
+                "tertiary": "snap",
+                "tertiaryLabel": "Switch"
+            },
+            "label": "Switch",
+            "inputs": [ ],
+            "outputs": [
+                {
+                    "port": 0,
+                    "valueType": "boolean"
+                }
+            ]
+        }
+    ]
+}
