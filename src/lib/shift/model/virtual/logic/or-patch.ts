@@ -6,6 +6,7 @@ export class OrPatch extends NodeModel {
   }
 
   handle(nodes) {
+    const ret = []
     let index = -1
     for (let i = 0; i < nodes.length; i++) {
       if (nodes[i].id === this.id) {
@@ -25,7 +26,7 @@ export class OrPatch extends NodeModel {
               if (sourceOutputs[j].port === prev.refOutputPort) {
                 let code =
                   variantName + ".inputs[0] = node" + i + ".outputs[" + j + "];"
-                console.log(code)
+                ret.push(code)
               }
             }
           }
@@ -46,7 +47,7 @@ export class OrPatch extends NodeModel {
               if (sourceOutputs[j].port === post.refOutputPort) {
                 let code =
                   variantName + ".inputs[1] = node" + i + ".outputs[" + j + "];"
-                console.log(code)
+                ret.push(code)
               }
             }
           }
@@ -64,5 +65,7 @@ export class OrPatch extends NodeModel {
       ".inputs[0] | " +
       variantName +
       ".inputs[1];"
+
+    return ret.join("")
   }
 }

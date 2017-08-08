@@ -35,7 +35,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               case "or":
                 return new OrPatch(
@@ -46,7 +46,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               case "not":
                 return new NotPatch(
@@ -57,7 +57,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               case "conditional":
                 return new ConditionalPatch(
@@ -68,7 +68,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               default:
                 throw "ERROR"
@@ -84,7 +84,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               case "linear":
                 return new LinearPatch(
@@ -95,7 +95,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               case "trigonometry":
                 return new TrigonometryPatch(
@@ -106,7 +106,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               default:
                 throw "ERROR"
@@ -122,7 +122,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               case "compound":
                 return new CompoundPatch(
@@ -133,7 +133,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               default:
                 throw "ERROR"
@@ -154,7 +154,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               default:
                 throw "ERROR"
@@ -170,7 +170,7 @@ export class NodeHandler {
                   commonNode.label,
                   commonNode.position,
                   commonNode.inputs,
-                  commonNode.outputs,
+                  commonNode.outputs
                 )
               default:
                 throw "ERROR"

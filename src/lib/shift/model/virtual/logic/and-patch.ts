@@ -6,9 +6,10 @@ export class AndPatch extends NodeModel {
   }
 
   handle(nodes) {
+    const ret = []
     const indent = "        "
-    let comment = indent + "// AndPatch"
-    console.log(comment)
+    let comment = indent + "// AndPatch\n"
+    ret.push(comment)
 
     let index = -1
     for (let i = 0; i < nodes.length; i++) {
@@ -36,7 +37,7 @@ export class AndPatch extends NodeModel {
                   ".outputs[" +
                   j +
                   "];"
-                console.log(code)
+                ret.push(code)
               }
             }
           }
@@ -63,7 +64,7 @@ export class AndPatch extends NodeModel {
                   ".outputs[" +
                   j +
                   "];"
-                console.log(code)
+                ret.push(code)
               }
             }
           }
@@ -81,6 +82,9 @@ export class AndPatch extends NodeModel {
       ".inputs[0] & " +
       variantName +
       ".inputs[1];\n"
-    console.log(code)
+
+    ret.push(code)
+
+    return ret.join("")
   }
 }

@@ -6,9 +6,11 @@ export class RGBNode extends NodeModel {
   }
 
   handle(nodes) {
+    const ret = []
+
     const indent = "        "
-    let comment = indent + "// RGBNode device_write"
-    console.log(comment)
+    let comment = indent + "// RGBNode device_write\n"
+    ret.push(comment)
 
     let index = -1
     for (let i = 0; i < nodes.length; i++) {
@@ -36,7 +38,7 @@ export class RGBNode extends NodeModel {
                   ".outputs[" +
                   j +
                   "];"
-                console.log(code)
+                ret.push(code)
               }
             }
           }
@@ -60,6 +62,7 @@ export class RGBNode extends NodeModel {
       indent +
       "device_write(&param);\n"
 
-    console.log(code)
+    ret.push(code)
+    return ret.join("")
   }
 }

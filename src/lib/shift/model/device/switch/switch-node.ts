@@ -6,6 +6,7 @@ export class SwitchNode extends NodeModel {
   }
 
   handle(nodes) {
+    const ret = []
     const indent = "        "
     let index = -1
     for (let i = 0; i < nodes.length; i++) {
@@ -31,6 +32,7 @@ export class SwitchNode extends NodeModel {
       indent +
       variantName +
       ".outputs[0] = param.value;\n"
-    console.log(comment + code)
+    ret.push(comment + code)
+    return ret.join("")
   }
 }
