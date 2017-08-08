@@ -1,6 +1,7 @@
 import { Project, IProject } from "../models/project.js"
 import { newController } from "../utils/controller-factory"
 import { getLogger } from "log4js"
+import { shift } from "../lib/shift"
 
 const logger = getLogger("[ProjectController]")
 
@@ -10,8 +11,8 @@ export const ProjectController = newController()
  * 发布项目固件
  */
 ProjectController.post("/deploy", (req, res) => {
-  logger.debug("deploy:", JSON.stringify(req.body))
-  res.json(req.body)
+  // logger.debug("deploy:", JSON.stringify(req.body))
+  res.json(shift(JSON.parse(req.body.code)))
 })
 
 /**
@@ -22,7 +23,7 @@ ProjectController.post("/", (req, res) => {
   const newProj = new Project(req.body)
   newProj.set("created_at", new Date())
   newProj.set("author", req.session.user._id)
-  newProj.save((err) => {
+  newProj.save(err => {
     if (err) {
       res.status(500).json(err)
       return
@@ -44,7 +45,7 @@ ProjectController.patch("/", (req, res) => {
       return
     }
     Object.assign(proj, req.body)
-    proj.save((err1) => {
+    proj.save(err1 => {
       if (err1) {
         res.status(500).json(err1)
         return

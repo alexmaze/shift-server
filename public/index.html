@@ -41,9 +41,7 @@
       <h3 class="panel-title">Post New Image</h3>
     </div>
     <div class="panel-body">
-      <form id="uploadForm" action="/api/hardware/upload" method="post"
-        target="id_iframe"
-        enctype="multipart/form-data">
+      <form id="uploadForm" action="/api/hardware/upload" method="post" target="id_iframe" enctype="multipart/form-data">
         <div class="form-group">
           <label for="node_id">Node ID</label>
           <input type="text" class="form-control" id="node_id" name="node_id" placeholder="4:1.1.1.1">
@@ -73,6 +71,27 @@
       <button id="build" type="submit" class="btn btn-default">Build</button>
     </div>
   </div>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Deploy Project</h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="node_id_2">Node ID</label>
+        <input type="text" class="form-control" id="node_id_3" placeholder="4:1.1.1.1">
+      </div>
+      <div class="form-group">
+        <label for="node_id">Data</label>
+        <textarea name="" id="deploy_data" style="display: block; width: 100%; height: 200px;"></textarea>
+      </div>
+      <button id="deploy" type="submit" class="btn btn-default">Deploy</button>
+      <h5 class="text-muted">Code</h5>
+      <pre class="well gecode">
+      </pre>
+    </div>
+  </div>
+
   <iframe id="id_iframe" name="id_iframe" style="display: none;"></iframe>
   <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="./main.js"></script>
