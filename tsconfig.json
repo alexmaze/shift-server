@@ -2,23 +2,16 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es5",
-    "lib": [
-      "es2015"
-    ],
+    "target": "es2017",
+    "lib": ["es2017"],
     "removeComments": true,
     "preserveConstEnums": true,
-    "experimentalDecorators":true,
+    "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "baseUrl": ".",
     "sourceMap": true,
     "outDir": "dist"
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

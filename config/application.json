@@ -1,7 +1,7 @@
 {
   "name": "shift-server",
   "server": {
-    "port": 80,
+    "port": 8088,
     "public": "../public",
     "address": "0.0.0.0"
   },
