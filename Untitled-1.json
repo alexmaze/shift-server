@@ -1,0 +1,194 @@
+[
+  {
+    "id": "TMP1517235986221",
+    "type": {
+      "primary": "virtual",
+      "secondary": "general",
+      "tertiary": "number_pitch",
+      "primaryLabel": "",
+      "secondaryLabel": "",
+      "tertiaryLabel": "Number"
+    },
+    "label": "",
+    "inputs": [],
+    "outputs": [{ "port": 0, "valueType": null }]
+  },
+  {
+    "id": "TMP1517235993116",
+    "type": {
+      "primary": "virtual",
+      "secondary": "general",
+      "tertiary": "number_pitch",
+      "primaryLabel": "",
+      "secondaryLabel": "",
+      "tertiaryLabel": "Number"
+    },
+    "label": "",
+    "inputs": [],
+    "outputs": [{ "port": 0, "valueType": null }]
+  },
+  {
+    "id": "TMP1517236018143",
+    "type": {
+      "primary": "device",
+      "secondary": "sensor",
+      "tertiary": "temperature_sensor",
+      "primaryLabel": "",
+      "secondaryLabel": "",
+      "tertiaryLabel": "温度传感器"
+    },
+    "label": "",
+    "inputs": [],
+    "outputs": [{ "port": 0, "valueType": null }]
+  },
+  {
+    "id": "TMP1517236032448",
+    "type": {
+      "primary": "device",
+      "secondary": "sensor",
+      "tertiary": "humidity_sensor",
+      "primaryLabel": "",
+      "secondaryLabel": "",
+      "tertiaryLabel": "湿度传感器"
+    },
+    "label": "",
+    "inputs": [],
+    "outputs": [{ "port": 0, "valueType": null }]
+  },
+  {
+    "id": "TMP1517236048301",
+    "type": {
+      "primary": "virtual",
+      "secondary": "logic",
+      "tertiary": "logic_conditional",
+      "primaryLabel": "",
+      "secondaryLabel": "",
+      "tertiaryLabel": "Conditional"
+    },
+    "label": "",
+    "inputs": [
+      {
+        "port": 0,
+        "value": null,
+        "valueType": "int",
+        "_label": "条件0",
+        "type": "ref",
+        "refId": "TMP1517236018143",
+        "refOutputPort": 0
+      },
+      {
+        "port": 1,
+        "value": null,
+        "valueType": "int",
+        "_label": "条件1",
+        "type": "ref",
+        "refId": "TMP1517235986221",
+        "refOutputPort": 0
+      }
+    ],
+    "outputs": [{ "port": 0, "valueType": null }]
+  },
+  {
+    "id": "TMP1517236066165",
+    "type": {
+      "primary": "virtual",
+      "secondary": "control",
+      "tertiary": "control_if",
+      "primaryLabel": "",
+      "secondaryLabel": "",
+      "tertiaryLabel": "If"
+    },
+    "label": "",
+    "inputs": [
+      {
+        "port": 0,
+        "value": null,
+        "valueType": "bool",
+        "_label": "x",
+        "type": "ref",
+        "refId": "TMP1517236048301",
+        "refOutputPort": 0
+      },
+      {
+        "port": 1,
+        "value": null,
+        "valueType": "int",
+        "_label": "True",
+        "type": "ref",
+        "refId": "TMP1517236032448",
+        "refOutputPort": 0
+      },
+      {
+        "port": 2,
+        "value": null,
+        "valueType": "int",
+        "_label": "False",
+        "type": "ref",
+        "refId": "TMP1517235993116",
+        "refOutputPort": 0
+      }
+    ],
+    "outputs": [{ "port": 0, "valueType": null }]
+  },
+  {
+    "id": "TMP1517236117318",
+    "type": {
+      "primary": "device",
+      "secondary": "sensor",
+      "tertiary": "number_node",
+      "primaryLabel": "",
+      "secondaryLabel": "",
+      "tertiaryLabel": "Numbers"
+    },
+    "label": "",
+    "inputs": [
+      {
+        "port": 0,
+        "value": null,
+        "valueType": "bool",
+        "_label": "active",
+        "type": "ref",
+        "refId": "TMP1517236149114",
+        "refOutputPort": 0
+      },
+      {
+        "port": 1,
+        "value": null,
+        "valueType": "any",
+        "_label": "显示值",
+        "type": "ref",
+        "refId": "TMP1517236066165",
+        "refOutputPort": 0
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "id": "TMP1517236149114",
+    "type": {
+      "primary": "device",
+      "secondary": "sensor",
+      "tertiary": "digital_switch",
+      "primaryLabel": "",
+      "secondaryLabel": "",
+      "tertiaryLabel": "数字触摸开关"
+    },
+    "label": "",
+    "inputs": [],
+    "outputs": [{ "port": 0, "valueType": null }]
+  },
+  {
+    "id": "TMP1517236522680",
+    "type": {
+      "primary": "device",
+      "secondary": "sensor",
+      "tertiary": "heartrate_sensor",
+      "primaryLabel": "",
+      "secondaryLabel": "",
+      "tertiaryLabel": "心率传感器"
+    },
+    "label": "",
+    "inputs": [],
+    "outputs": [{ "port": 0, "valueType": null }]
+  }
+]

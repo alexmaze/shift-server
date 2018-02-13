@@ -11,8 +11,8 @@ export const ProjectController = newController()
  * 发布项目固件
  */
 ProjectController.post("/deploy", (req, res) => {
-  // logger.debug("deploy:", JSON.stringify(req.body))
-  res.json(shift(JSON.parse(req.body.code)))
+  logger.debug("deploy:", JSON.stringify(req.body))
+  res.json({})
 })
 
 /**
