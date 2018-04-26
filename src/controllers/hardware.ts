@@ -26,7 +26,7 @@ HardwareController.get("/report/:id", (req, res) => {
   let id = req.params.id
 
   // 注册最后汇报时间
-  hdReport[id] = (new Date())
+  hdReport[id] = new Date()
 
   // 检查是否有更新
   let ret = checkState(id)
@@ -63,10 +63,10 @@ HardwareController.get("/download/:id", (req, res) => {
   let data = Buffer.alloc(length)
 
   let downloadTail = Buffer.alloc(4)
-  downloadTail[0] = 0xA5
-  downloadTail[1] = 0xA5
-  downloadTail[2] = 0xA5
-  downloadTail[3] = 0xA5
+  downloadTail[0] = 0xa5
+  downloadTail[1] = 0xa5
+  downloadTail[2] = 0xa5
+  downloadTail[3] = 0xa5
   fs.open(addr, "r", (err, fd) => {
     if (err) {
       return res.status(500).json(err)
@@ -81,10 +81,11 @@ HardwareController.get("/download/:id", (req, res) => {
       // logger.debug(crcBuffer)
       // logger.debug(Buffer.concat([buffer, crcBuffer]))
       fs.close(fd)
-      return res.status(206).end(Buffer.concat([buffer, crcBuffer, downloadTail]))
+      return res
+        .status(206)
+        .end(Buffer.concat([buffer, crcBuffer, downloadTail]))
     })
   })
-
 })
 
 /**
@@ -111,7 +112,7 @@ HardwareController.post("/store/:id", (req, res) => {
 HardwareController.get("/store/:id", (req, res) => {
   let id = req.params.id
   let data = hdTempStore[id]
-  if (data && ((data.updated - Date.now()) < 120 * 1000) ) {
+  if (data && data.updated - Date.now() < 120 * 1000) {
     res.json(data.value).end()
   } else {
     res.status(404).end()
@@ -131,12 +132,14 @@ HardwareController.post("/components/:id", (req, res) => {
 
 HardwareController.get("/status", (req, res) => {
   logger.debug("status", hdReport, hdImage)
-  res.json({
-    hdReport,
-    hdImage,
-    hdTempStore,
-    hdComponents
-  }).end()
+  res
+    .json({
+      hdReport,
+      hdImage,
+      hdTempStore,
+      hdComponents
+    })
+    .end()
 })
 
 HardwareController.post("/image", (req, res) => {
@@ -160,6 +163,87 @@ HardwareController.post("/upload", upload.single("file"), (req, res) => {
 HardwareController.post("/build", (req, res) => {
   logger.debug("build", req.body)
   res.json(req.body)
+})
+
+HardwareController.get("/available", (req, res) => {
+  res
+    .json({
+      data: [
+        {
+          id: "TMP1517235986221",
+          type: {
+            primary: "virtual",
+            secondary: "general",
+            tertiary: "number_pitch"
+          }
+        },
+        {
+          id: "TMP1517235993116",
+          type: {
+            primary: "virtual",
+            secondary: "general",
+            tertiary: "number_pitch"
+          }
+        },
+        {
+          id: "TMP1517236018143",
+          type: {
+            primary: "device",
+            secondary: "sensor",
+            tertiary: "temperature_sensor"
+          }
+        },
+        {
+          id: "TMP1517236032448",
+          type: {
+            primary: "device",
+            secondary: "sensor",
+            tertiary: "humidity_sensor"
+          }
+        },
+        {
+          id: "TMP1517236048301",
+          type: {
+            primary: "virtual",
+            secondary: "logic",
+            tertiary: "logic_conditional"
+          }
+        },
+        {
+          id: "TMP1517236066165",
+          type: {
+            primary: "virtual",
+            secondary: "control",
+            tertiary: "control_if"
+          }
+        },
+        {
+          id: "TMP1517236117318",
+          type: {
+            primary: "device",
+            secondary: "sensor",
+            tertiary: "number_node"
+          }
+        },
+        {
+          id: "TMP1517236149114",
+          type: {
+            primary: "device",
+            secondary: "sensor",
+            tertiary: "digital_switch"
+          }
+        },
+        {
+          id: "TMP1517236522680",
+          type: {
+            primary: "device",
+            secondary: "sensor",
+            tertiary: "heartrate_sensor"
+          }
+        }
+      ]
+    })
+    .end()
 })
 
 // ===============================================
