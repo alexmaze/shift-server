@@ -160,90 +160,38 @@ HardwareController.post("/upload", upload.single("file"), (req, res) => {
   }
 })
 
-HardwareController.post("/build", (req, res) => {
-  logger.debug("build", req.body)
+// 前端使用
+// 检查主模块是否存在
+HardwareController.get("/master/:id", (req, res) => {
+  if (req.params.id === "no") {
+    return res.status(404).end()
+  }
+  res.status(200).end()
+})
+
+// 保存&烧录固件
+HardwareController.post("/master/:id/firmware", (req, res) => {
+  logger.debug("save & build", req.body)
   res.json(req.body)
 })
 
+// 获取可用设备列表
 HardwareController.get("/available", (req, res) => {
+  const type = req.query.type
+  let data = availableItems
+  if (type) {
+    data = availableItems.filter(item => item.type.tertiary === type)
+  }
   res
     .json({
-      data: [
-        {
-          id: "TMP1517235986221",
-          type: {
-            primary: "virtual",
-            secondary: "general",
-            tertiary: "number_pitch"
-          }
-        },
-        {
-          id: "TMP1517235993116",
-          type: {
-            primary: "virtual",
-            secondary: "general",
-            tertiary: "number_pitch"
-          }
-        },
-        {
-          id: "TMP1517236018143",
-          type: {
-            primary: "device",
-            secondary: "sensor",
-            tertiary: "temperature_sensor"
-          }
-        },
-        {
-          id: "TMP1517236032448",
-          type: {
-            primary: "device",
-            secondary: "sensor",
-            tertiary: "humidity_sensor"
-          }
-        },
-        {
-          id: "TMP1517236048301",
-          type: {
-            primary: "virtual",
-            secondary: "logic",
-            tertiary: "logic_conditional"
-          }
-        },
-        {
-          id: "TMP1517236066165",
-          type: {
-            primary: "virtual",
-            secondary: "control",
-            tertiary: "control_if"
-          }
-        },
-        {
-          id: "TMP1517236117318",
-          type: {
-            primary: "device",
-            secondary: "sensor",
-            tertiary: "number_node"
-          }
-        },
-        {
-          id: "TMP1517236149114",
-          type: {
-            primary: "device",
-            secondary: "sensor",
-            tertiary: "digital_switch"
-          }
-        },
-        {
-          id: "TMP1517236522680",
-          type: {
-            primary: "device",
-            secondary: "sensor",
-            tertiary: "heartrate_sensor"
-          }
-        }
-      ]
+      data
     })
     .end()
+})
+
+// 点亮从模块
+HardwareController.post("/test", (req, res) => {
+  res.status(200).end()
 })
 
 // ===============================================
@@ -266,3 +214,56 @@ function getImagePath(id) {
     return undefined
   }
 }
+
+const availableItems = [
+  {
+    id: "TMP1517236018143",
+    type: {
+      primary: "device",
+      secondary: "sensor",
+      tertiary: "temperature_sensor"
+    },
+    label: "温度传感器 1",
+    is_new: true
+  },
+  {
+    id: "TMP1517236018144",
+    type: {
+      primary: "device",
+      secondary: "sensor",
+      tertiary: "temperature_sensor"
+    },
+    label: "温度传感器 2",
+    is_new: true
+  },
+  {
+    id: "TMP1517236032448",
+    type: {
+      primary: "device",
+      secondary: "sensor",
+      tertiary: "humidity_sensor"
+    },
+    label: "湿度传感器 1",
+    is_new: false
+  },
+  {
+    id: "TMP1517236149114",
+    type: {
+      primary: "device",
+      secondary: "sensor",
+      tertiary: "digital_switch"
+    },
+    label: "数字开关 1",
+    is_new: false
+  },
+  {
+    id: "TMP1517236522680",
+    type: {
+      primary: "device",
+      secondary: "sensor",
+      tertiary: "heartrate_sensor"
+    },
+    label: "心率传感器 1",
+    is_new: false
+  }
+]
