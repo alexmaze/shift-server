@@ -1,7 +1,10 @@
 import * as fs from "fs"
-import { shift } from "../../src/lib/shift"
+import { Shift } from "../../src/lib/shift"
 
-const data = fs.readFileSync("./input.json", "utf-8")
-const ret = shift(JSON.parse(data))
+const data = JSON.parse(fs.readFileSync("./input.json", "utf-8"))
 
-console.log(ret)
+const shift = new Shift(data)
+
+shift.compile()
+
+console.log(shift.render())

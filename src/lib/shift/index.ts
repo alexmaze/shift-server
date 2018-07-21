@@ -1,71 +1,48 @@
-import { NodeModel } from "./model/common-node"
-import { NodeHandler } from "./handler/node-handler"
+import { INode, IContext, NodeTypePrimary } from "./models"
+import { Writer } from "./utils/writer"
+import { renderLayout } from "./templates/layout"
+import { getNodeVarName, getNodeVarType } from "./utils/node"
 
-export interface IData {
-  nodes: NodeModel[]
-}
+export class Shift {
+  context: IContext
+  data: INode[]
+  loopDelay: number
 
-export function shift(data: IData) {
-  const ret = []
-  const nodes = data.nodes
+  constructor(data: INode[], loopDelay = 100) {
+    this.data = data
+    this.loopDelay = loopDelay
 
-  const deviceDataType = "DeviceDataType param;\n"
-
-  console.log("==========creating nodes start==========")
-
-  const nodeModels = []
-  for (let i = 0; i < nodes.length; i++) {
-    const node = NodeHandler.createNode(nodes[i])
-    nodeModels.push(node)
+    this.context = {
+      setupWriter: new Writer({ paddingLeft: 2 }),
+      loopWriter: new Writer({ paddingLeft: 4 }),
+      data
+    }
   }
 
-  console.log("==========creating nodes end==========")
-
-  // 以下开始生成代码
-  console.log("==========handling nodes start==========\n")
-
-  const initialCode =
-    '#include "cAppTask.h"\n\n' + "osThreadId cI2C_Thread_Task1;\n"
-
-  ret.push(initialCode)
-
-  const dataStructureCode =
-    "struct Node{\n" +
-    "    int inputs[20];\n" +
-    "    int outputs[20];\n" +
-    "};\n"
-
-  ret.push(dataStructureCode)
-
-  ret.push("void cI2C_Task1Fun(void const * argument){")
-
-  ret.push("    " + deviceDataType)
-
-  for (let i = 0; i < nodeModels.length; i++) {
-    ret.push("    Node node" + i + ";")
+  render(): string {
+    const { setupWriter, loopWriter } = this.context
+    return renderLayout(
+      this.loopDelay,
+      setupWriter.toString(),
+      loopWriter.toString()
+    )
   }
-  ret.push("")
 
-  ret.push("    while(1) {")
-  for (let i = 0; i < nodeModels.length; i++) {
-    ret.push(nodeModels[i].handle(nodes))
+  compile() {
+    const { setupWriter, loopWriter } = this.context
+    setupWriter.clean()
+    loopWriter.clean()
+
+    // compile setup
+    for (const node of this.data) {
+      setupWriter.writeLine(`${getNodeVarType(node)} ${getNodeVarName(node)};`)
+
+      if (!!node.address) {
+        setupWriter.writeLine(`${getNodeVarName(node)} = ${node.address};`)
+      }
+      setupWriter.writeLine()
+    }
+
+    // compile loop
   }
-  ret.push("        osDelay(1000);\n")
-  ret.push("        osDelay(100);")
-  ret.push("    }")
-  ret.push("}\n")
-
-  const endCode =
-    "void cI2C_Task1(void) {\n" +
-    "    osThreadDef(cI2C_Handle_Task1, cI2C_Task1Fun, osPriorityNormal, 0, 256);\n" +
-    "    cI2C_Thread_Task1 = osThreadCreate(osThread(cI2C_Handle_Task1), NULL);\n" +
-    "}\n\n" +
-    "void cI2C_Task(void) {\n" +
-    "    cI2C_Task1();\n" +
-    "}"
-
-  ret.push(endCode)
-
-  console.log("==========handling nodes end==========\n")
-  return ret.join("\n")
 }

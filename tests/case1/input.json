@@ -60,7 +60,8 @@
       {
         "port": 0,
         "valueType": ["bool"],
-        "value": true
+        "value": true,
+        "type": "const"
       }
     ],
     "sub": []
