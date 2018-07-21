@@ -9,13 +9,13 @@ const logger = getLogger("[HardwareController]")
 export const HardwareController = newController()
 
 // 保存硬件注册时间
-let hdReport = {}
+const hdReport = {}
 // 保存新固件信息
-let hdImage = {}
+const hdImage = {}
 // 保存硬件临时信息
-let hdTempStore = {}
+const hdTempStore = {}
 // 保存硬件从模块信息
-let hdComponents = {}
+const hdComponents = {}
 
 /**
  * 硬件心跳接口，报告id给服务器，统计状态
@@ -23,13 +23,13 @@ let hdComponents = {}
  * @return {[integer]}               [0: 无新固件 | >0: 新固件大小(byte)]
  */
 HardwareController.get("/report/:id", (req, res) => {
-  let id = req.params.id
+  const id = req.params.id
 
   // 注册最后汇报时间
   hdReport[id] = new Date()
 
   // 检查是否有更新
-  let ret = checkState(id)
+  const ret = checkState(id)
 
   // 返回结果
   res.status(200).json(ret)
@@ -42,16 +42,16 @@ HardwareController.get("/report/:id", (req, res) => {
  * @return {[type]}                 [description]
  */
 HardwareController.get("/download/:id", (req, res) => {
-  let id = req.params.id
+  const id = req.params.id
 
   // 获取最新硬件地址
 
-  let addr = getImagePath(id)
+  const addr = getImagePath(id)
   if (addr === undefined) {
     res.status(404).end()
     return
   }
-  const range = req.headers.range
+  const range = req.headers.range as string
   if (!range) {
     return res.download(addr)
   }
@@ -60,9 +60,9 @@ HardwareController.get("/download/:id", (req, res) => {
   const end = parseInt(theRange[1], 10)
   const length = end - start + 1
 
-  let data = Buffer.alloc(length)
+  const data = Buffer.alloc(length)
 
-  let downloadTail = Buffer.alloc(4)
+  const downloadTail = Buffer.alloc(4)
   downloadTail[0] = 0xa5
   downloadTail[1] = 0xa5
   downloadTail[2] = 0xa5
@@ -95,13 +95,13 @@ HardwareController.get("/download/:id", (req, res) => {
  * @return {[type]}               [description]
  */
 HardwareController.get("/finish/:id", (req, res) => {
-  let id = req.params.id
+  const id = req.params.id
   hdImage[id] = undefined
   res.end()
 })
 
 HardwareController.post("/store/:id", (req, res) => {
-  let id = req.params.id
+  const id = req.params.id
   hdTempStore[id] = {
     updated: Date.now(),
     value: req.body
@@ -110,8 +110,8 @@ HardwareController.post("/store/:id", (req, res) => {
 })
 
 HardwareController.get("/store/:id", (req, res) => {
-  let id = req.params.id
-  let data = hdTempStore[id]
+  const id = req.params.id
+  const data = hdTempStore[id]
   if (data && data.updated - Date.now() < 120 * 1000) {
     res.json(data.value).end()
   } else {
@@ -120,7 +120,7 @@ HardwareController.get("/store/:id", (req, res) => {
 })
 
 HardwareController.post("/components/:id", (req, res) => {
-  let id = req.params.id
+  const id = req.params.id
   hdComponents[id] = {
     updated: Date.now(),
     value: req.body
@@ -197,7 +197,7 @@ HardwareController.post("/test", (req, res) => {
 // ===============================================
 function checkState(id) {
   if (hdImage.hasOwnProperty(id)) {
-    let image = hdImage[id]
+    const image = hdImage[id]
     if (image === undefined) {
       return 0
     }

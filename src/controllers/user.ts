@@ -12,9 +12,9 @@ export const UserController = newController()
  */
 UserController.post("/", (req, res) => {
   logger.debug("create user", req.body)
-  let newUser = new User(req.body)
+  const newUser = new User(req.body)
   newUser.set("created_at", new Date())
-  newUser.save((err) => {
+  newUser.save(err => {
     if (err) {
       res.status(500).json(err)
       return
@@ -37,7 +37,7 @@ UserController.patch("/:id", (req, res) => {
     userModel.set("name", req.body.name)
     userModel.set("email", req.body.email)
 
-    userModel.save((err1) => {
+    userModel.save(err1 => {
       if (err1) {
         res.status(500).json(err1)
         return
@@ -66,7 +66,7 @@ UserController.get("/:id", (req, res) => {
 })
 
 UserController.delete("/:id", (req, res) => {
-  User.findByIdAndRemove(req.params.id, (err) => {
+  User.findByIdAndRemove(req.params.id, err => {
     if (err) {
       res.status(404).json(err)
       return
@@ -79,7 +79,6 @@ UserController.delete("/:id", (req, res) => {
  * 获取用户列表
  */
 UserController.get("/", (req, res) => {
-
   const page = req.query.page ? parseInt(req.query.page, 10) : 1
   const perpage = parseInt(req.query.perpage, 10)
 
@@ -92,11 +91,19 @@ UserController.get("/", (req, res) => {
       res.json(list)
     })
   } else {
-    pageQuery(page, perpage, User, undefined, {}, { created: "desc" }, (err, $page) => {
-      $page.items.forEach((user) => {
-        user.password = undefined
-      })
-      res.json($page)
-    })
+    pageQuery(
+      page,
+      perpage,
+      User,
+      undefined,
+      {},
+      { created: "desc" },
+      (err, $page) => {
+        $page.items.forEach(user => {
+          user.password = undefined
+        })
+        res.json($page)
+      }
+    )
   }
 })

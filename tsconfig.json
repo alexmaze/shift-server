@@ -8,6 +8,8 @@
     "preserveConstEnums": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "strict": false,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "sourceMap": true,
     "outDir": "dist"

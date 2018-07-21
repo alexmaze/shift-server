@@ -5,14 +5,18 @@ import * as path from "path"
 import * as log4js from "log4js"
 
 import AppConfig from "./config"
-import { AuthMiddleware, SessionMiddleware, HttpLogMiddleware } from "./middlewares"
+import {
+  AuthMiddleware,
+  SessionMiddleware,
+  HttpLogMiddleware
+} from "./middlewares"
 import { SessionController } from "./controllers/session"
 import { UserController } from "./controllers/user"
 import { ProjectController } from "./controllers/project"
 import { HardwareController } from "./controllers/hardware"
 
-log4js.setGlobalLogLevel(AppConfig.log4js.level)
 const logger = log4js.getLogger("[INIT]")
+logger.level = AppConfig.log4js.level
 
 const app = express()
 app.disable("x-powered-by")
@@ -20,7 +24,7 @@ app.disable("x-powered-by")
 // 第三方中间件
 app.use(express.static(path.join(__dirname, AppConfig.server.public)))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded( { extended: true } ))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 // 中间件

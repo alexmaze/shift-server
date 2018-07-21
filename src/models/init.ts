@@ -5,7 +5,9 @@ import { getLogger } from "log4js"
 const logger = getLogger("[MONGODB]")
 
 export function initDB() {
-  mongoose.connect(buildConnectionUrl())
+  mongoose.connect(buildConnectionUrl(), {
+    useNewUrlParser: true
+  })
   const connection = mongoose.connection
 
   connection.on("error", error => {
