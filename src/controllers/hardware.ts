@@ -3,19 +3,12 @@ import crc32 from "buffer-crc32"
 import { upload } from "../utils/file-upload"
 import { newController } from "../utils/controller-factory"
 import { getLogger } from "log4js"
+import { HardwareModel } from "../models/hardware"
+import { Shift } from "../lib/shift"
 
 const logger = getLogger("[HardwareController]")
 
 export const HardwareController = newController()
-
-// 保存硬件注册时间
-const hdReport = {}
-// 保存新固件信息
-const hdImage = {}
-// 保存硬件临时信息
-const hdTempStore = {}
-// 保存硬件从模块信息
-const hdComponents = {}
 
 /**
  * 硬件心跳接口，报告id给服务器，统计状态
@@ -25,14 +18,11 @@ const hdComponents = {}
 HardwareController.get("/report/:id", (req, res) => {
   const id = req.params.id
 
-  // 注册最后汇报时间
-  hdReport[id] = new Date()
+  const hw = HardwareModel.find(id)
+  hw.lastReportAt = new Date()
+  HardwareModel.save(hw)
 
-  // 检查是否有更新
-  const ret = checkState(id)
-
-  // 返回结果
-  res.status(200).json(ret)
+  res.status(200).json(hw.image.size || 0)
 })
 
 /**
@@ -45,12 +35,14 @@ HardwareController.get("/download/:id", (req, res) => {
   const id = req.params.id
 
   // 获取最新硬件地址
+  const hw = HardwareModel.find(id)
 
-  const addr = getImagePath(id)
+  const addr = hw.image.path
   if (addr === undefined) {
     res.status(404).end()
     return
   }
+
   const range = req.headers.range as string
   if (!range) {
     return res.download(addr)
@@ -96,22 +88,32 @@ HardwareController.get("/download/:id", (req, res) => {
  */
 HardwareController.get("/finish/:id", (req, res) => {
   const id = req.params.id
-  hdImage[id] = undefined
+
+  const hw = HardwareModel.find(id)
+  hw.image = {}
+  HardwareModel.save(hw)
+
   res.end()
 })
 
 HardwareController.post("/store/:id", (req, res) => {
   const id = req.params.id
-  hdTempStore[id] = {
+
+  const hw = HardwareModel.find(id)
+
+  hw.data = {
     updated: Date.now(),
     value: req.body
   }
+
+  HardwareModel.save(hw)
+
   res.status(200).end()
 })
 
 HardwareController.get("/store/:id", (req, res) => {
   const id = req.params.id
-  const data = hdTempStore[id]
+  const data = HardwareModel.find(id).data
   if (data && data.updated - Date.now() < 120 * 1000) {
     res.json(data.value).end()
   } else {
@@ -121,62 +123,73 @@ HardwareController.get("/store/:id", (req, res) => {
 
 HardwareController.post("/components/:id", (req, res) => {
   const id = req.params.id
-  hdComponents[id] = {
+
+  const hw = HardwareModel.find(id)
+  hw.components = {
     updated: Date.now(),
     value: req.body
   }
+  HardwareModel.save(hw)
+
   res.status(200).end()
 })
 
 // -----------------------------------------------
 
 HardwareController.get("/status", (req, res) => {
-  logger.debug("status", hdReport, hdImage)
-  res
-    .json({
-      hdReport,
-      hdImage,
-      hdTempStore,
-      hdComponents
-    })
-    .end()
+  res.json(HardwareModel.all()).end()
 })
 
 HardwareController.post("/image", (req, res) => {
-  logger.debug("image", req.body)
-  hdImage[req.body.id] = req.body.image
+  const hw = HardwareModel.find(req.body.id)
+  hw.image = req.body.image
+  HardwareModel.save(hw)
+
   res.end()
 })
 
 HardwareController.post("/upload", upload.single("file"), (req, res) => {
+  const hw = HardwareModel.find(req.body.node_id)
+
   if (req.file) {
-    hdImage[req.body.node_id] = {
+    hw.image = {
       size: req.file.size,
       path: "public/upload/" + req.file.filename
     }
+    HardwareModel.save(hw)
     return res.json(req.file)
   } else {
-    return res.status(500).end()
+    return res.status(400).end()
   }
 })
 
 // 前端使用
 // 检查主模块是否存在
 HardwareController.get("/master/:id", (req, res) => {
-  if (req.params.id === "no") {
+  const hw = HardwareModel.find(req.params.id)
+  if (hw.lastReportAt == null) {
     return res.status(404).end()
   }
+
   res.status(200).end()
 })
 
 // 保存&烧录固件
 HardwareController.post("/master/:id/firmware", (req, res) => {
   logger.debug("save & build", req.body)
-  res.json(req.body)
+
+  const shift = new Shift(req.body)
+  try {
+    shift.compile()
+    res.send(shift.renderC())
+  } catch (e) {
+    res.status(500).json(e)
+  }
 })
 
 // 获取可用设备列表
 HardwareController.get("/available", (req, res) => {
+  // TODO
   const type = req.query.type
   let data = availableItems
   if (type) {
@@ -191,29 +204,9 @@ HardwareController.get("/available", (req, res) => {
 
 // 点亮从模块
 HardwareController.post("/test", (req, res) => {
+  // TODO
   res.status(200).end()
 })
-
-// ===============================================
-function checkState(id) {
-  if (hdImage.hasOwnProperty(id)) {
-    const image = hdImage[id]
-    if (image === undefined) {
-      return 0
-    }
-    return image.size
-  } else {
-    return 0
-  }
-}
-
-function getImagePath(id) {
-  if (hdImage[id] !== undefined) {
-    return hdImage[id].path
-  } else {
-    return undefined
-  }
-}
 
 const availableItems = [
   {
