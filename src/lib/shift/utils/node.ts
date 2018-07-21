@@ -1,4 +1,4 @@
-import { INode, NodeTypePrimary } from "../models"
+import { INode, NodeTypePrimary, INodeType } from "../models"
 
 export function getNodeVarName(node: INode) {
   switch (node.type.primary) {
@@ -20,4 +20,8 @@ export function getNodeVarType(node: INode) {
     default:
       throw new Error("Unknow primary type: " + node.type.primary)
   }
+}
+
+export function getNodeTypeKey(type: INodeType): string {
+  return `${type.primary} -> ${type.secondary} -> ${type.tertiary}`
 }

@@ -1,6 +1,10 @@
-import { INode, IContext } from "../models"
+import { INode, IContext, INodeType } from "../models"
 
 export interface IHander {
-  test: (node: INode) => boolean
+  getSupportedType: () => INodeType
   handle: (node: INode, ctx: IContext) => void
+}
+
+export interface IHandlerClass {
+  new (): IHander
 }

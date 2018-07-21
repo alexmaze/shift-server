@@ -5,15 +5,19 @@ import { getNodeVarName, getNodeVarType } from "./utils/node"
 
 import { renderC } from "./templates/cAppTask.c"
 import { renderH } from "./templates/cAppTask.h"
+import { NodeHandlerManager } from "./handlers"
 
 export class Shift {
   context: IContext
   data: INode[]
   loopDelay: number
+  handler: NodeHandlerManager
 
   constructor(data: INode[], loopDelay = 100) {
     this.data = data
     this.loopDelay = loopDelay
+
+    this.handler = new NodeHandlerManager()
 
     this.context = {
       setupWriter: new Writer({ paddingLeft: 2 }),
@@ -43,20 +47,16 @@ export class Shift {
     loopWriter.clean()
     defWriter.clean()
 
-    // compile def
-    // TODO
-
-    // compile setup
+    // compile each node
     for (const node of this.data) {
-      setupWriter.writeLine()
-      setupWriter.writeLine(`${getNodeVarType(node)} ${getNodeVarName(node)};`)
+      this.handler.handle(node, this.context)
 
-      if (!!node.address) {
-        setupWriter.writeLine(`${getNodeVarName(node)} = ${node.address};`)
-      }
+      // setupWriter.writeLine()
+      // setupWriter.writeLine(`${getNodeVarType(node)} ${getNodeVarName(node)};`)
+
+      // if (!!node.address) {
+      //   setupWriter.writeLine(`${getNodeVarName(node)} = ${node.address};`)
+      // }
     }
-
-    // compile loop
-    // TODO
   }
 }
