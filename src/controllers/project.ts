@@ -1,7 +1,7 @@
 import { Project, IProject } from "../models/project.js"
-import { newController } from "../utils/controller-factory"
+import { newController } from "../utils/controller-factory.js"
 import { getLogger } from "log4js"
-import { shift } from "../lib/shift"
+// import { Shift } from "../lib/shift/index.js"
 
 const logger = getLogger("[ProjectController]")
 
@@ -74,11 +74,13 @@ ProjectController.get("/:id", (req, res) => {
  */
 ProjectController.get("/", (req, res) => {
   logger.debug("find projs")
-  Project.find().populate("author").exec((err, projs) => {
-    if (err) {
-      res.status(500).json(err)
-      return
-    }
-    res.json(projs)
-  })
+  Project.find()
+    .populate("author")
+    .exec((err, projs) => {
+      if (err) {
+        res.status(500).json(err)
+        return
+      }
+      res.json(projs)
+    })
 })

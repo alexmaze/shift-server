@@ -1,10 +1,10 @@
 /**
- * 渲染 cAppTask
+ * 渲染 cAppTask.c 文件
  * @param loopDelay
  * @param setupCode
  * @param loopCode
  */
-export function renderLayout(
+export function renderC(
   loopDelay: number,
   setupCode: string,
   loopCode: string
@@ -24,14 +24,18 @@ extern list_t *pDeviceList;
 void cAppTask_Fun(void const *argument)
 {
   /* USER CODE BEGIN Setup*/
+
 ${setupCode}
+
   /* USER CODE END   Setup*/
 
   while (1)
   {
 
     /* USER CODE BEGIN Loop */
+
 ${loopCode}
+
     /* USER CODE END   Loop */
 
     osDelay(${loopDelay}); //The minimum time delay for other thread
