@@ -4,6 +4,15 @@ import { getNodeTypeKey } from "../utils/node"
 import { NumberNodeHandler } from "./hardware/sensor/number-node"
 import { SlidingRheostatHandler } from "./hardware/sensor/sliding-rheostat"
 import { BoolPitchHandler } from "./virtual/general/bool-pitch"
+import { NumberPitchHandler } from "./virtual/general/number-pitch"
+import { LogicAndHandler } from "./virtual/logic/logic-and"
+import { LogicConditionalHandler } from "./virtual/logic/logic-conditional"
+import { LogicNotHandler } from "./virtual/logic/logic-not"
+import { LogicOrHandler } from "./virtual/logic/logic-or"
+import { ControlIfHandler } from "./virtual/control/control-if"
+import { MathAbsHandler } from "./virtual/math/math-abs"
+import { OperatorBitwiseHandler } from "./virtual/operator/operator-bitwise"
+import { OperatorOperationHandler } from "./virtual/operator/operator-operation"
 
 export class NodeHandlerManager {
   handlers: Map<string, IHander>
@@ -13,7 +22,21 @@ export class NodeHandlerManager {
 
     this.register(NumberNodeHandler)
       .register(SlidingRheostatHandler)
+
       .register(BoolPitchHandler)
+      .register(NumberPitchHandler)
+
+      .register(LogicAndHandler)
+      .register(LogicConditionalHandler)
+      .register(LogicNotHandler)
+      .register(LogicOrHandler)
+
+      .register(ControlIfHandler)
+
+      .register(MathAbsHandler)
+
+      .register(OperatorBitwiseHandler)
+      .register(OperatorOperationHandler)
   }
 
   handle(node: INode, ctx: IContext) {

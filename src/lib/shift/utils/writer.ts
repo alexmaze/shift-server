@@ -18,13 +18,12 @@ export class Writer {
   }
 
   write(...data: string[]) {
-    const { paddingLeft } = this.config
-
-    this.data.push(this._getPadding(paddingLeft), ...data)
+    this.data.push(...data)
   }
 
   writeLine(...data: string[]) {
-    this.write(...data, "\n")
+    const { paddingLeft } = this.config
+    this.write(this._getPadding(paddingLeft), ...data, "\n")
   }
 
   toString() {

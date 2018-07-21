@@ -3,12 +3,12 @@ export enum NodeTypePrimary {
   Virtual = "virtual"
 }
 
-export enum INodeValueType {
+export enum NodeValueType {
   Bool = "bool",
   Int = "int"
 }
 
-export enum INodeInputSourceType {
+export enum NodeInputSourceType {
   Reference = "ref",
   Constant = "const"
 }
@@ -22,8 +22,8 @@ export interface INodeType {
 export interface INodeInput {
   port: number // 0 ~ n
   value: any
-  valueType: INodeValueType
-  type: INodeInputSourceType
+  valueType: NodeValueType
+  type: NodeInputSourceType
   refId: string
   refOutputPort: number
 }
@@ -31,7 +31,7 @@ export interface INodeInput {
 export interface INodeOutput {
   port: number
   value: any
-  valueType: INodeValueType
+  valueType: NodeValueType
 }
 
 export interface INode {
@@ -40,4 +40,6 @@ export interface INode {
   type: INodeType
   inputs: INodeInput[]
   outputs: INodeOutput[]
+
+  extra?: any
 }

@@ -3,7 +3,7 @@ import {
   IContext,
   INodeType,
   NodeTypePrimary,
-  INodeInputSourceType
+  NodeInputSourceType
 } from "../../../models"
 import { AbstractNodeHandler } from "../../abstract-handler"
 import { writeCommonSetup } from "../../../utils/handler"
@@ -34,7 +34,7 @@ export class NumberNodeHandler extends AbstractNodeHandler {
     // 该节点有两个输入，第一个是开关，第二个是显示数字 1-99
 
     const ip1 = findInputPort(node, 1)
-    if (ip1.type === INodeInputSourceType.Reference) {
+    if (ip1.type === NodeInputSourceType.Reference) {
       const targetNode = findRefNode(ip1.refId, ctx.data)
       const targetNodeVarName = getNodeVarName(targetNode)
       loopWriter.writeLine(`${varName}.data[1] = ${targetNodeVarName}.data[1];`)
@@ -45,7 +45,7 @@ export class NumberNodeHandler extends AbstractNodeHandler {
     loopWriter.writeLine(`${varName}.command = CMD_WRITE_DATA;`)
 
     const ip0 = findInputPort(node, 0)
-    if (ip0.type === INodeInputSourceType.Reference) {
+    if (ip0.type === NodeInputSourceType.Reference) {
       const targetNode = findRefNode(ip0.refId, ctx.data)
       const targetNodeVarName = getNodeVarName(targetNode)
 
