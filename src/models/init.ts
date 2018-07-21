@@ -8,7 +8,7 @@ export function initDB() {
   mongoose.connect(buildConnectionUrl())
   const connection = mongoose.connection
 
-  connection.on("error", (error) => {
+  connection.on("error", error => {
     logger.error("mongodb error:", error)
   })
   connection.on("connected", () => {
