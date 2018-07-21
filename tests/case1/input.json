@@ -1,0 +1,68 @@
+[
+  {
+    "id": "TMP1532158172587",
+    "address": "0x20030201",
+    "type": {
+      "primary": "device",
+      "secondary": "sensor",
+      "tertiary": "number_node"
+    },
+    "inputs": [
+      {
+        "port": 0,
+        "value": null,
+        "valueType": "bool",
+        "_label": "active",
+        "type": "ref",
+        "refId": "TMP1532158209681",
+        "refOutputPort": 0
+      },
+      {
+        "port": 1,
+        "value": null,
+        "valueType": "int",
+        "_label": "显示值",
+        "type": "ref",
+        "refId": "TMP1532158181643",
+        "refOutputPort": 0
+      }
+    ],
+    "outputs": [],
+    "sub": []
+  },
+  {
+    "id": "TMP1532158181643",
+    "address": "0x10130201",
+    "type": {
+      "primary": "device",
+      "secondary": "sensor",
+      "tertiary": "sliding_rheostat"
+    },
+    "inputs": [],
+    "outputs": [
+      {
+        "port": 0,
+        "valueType": "int",
+        "value": "—"
+      }
+    ],
+    "sub": []
+  },
+  {
+    "id": "TMP1532158209681",
+    "type": {
+      "primary": "virtual",
+      "secondary": "general",
+      "tertiary": "bool_pitch"
+    },
+    "inputs": [],
+    "outputs": [
+      {
+        "port": 0,
+        "valueType": ["bool"],
+        "value": true
+      }
+    ],
+    "sub": []
+  }
+]

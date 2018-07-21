@@ -24,7 +24,7 @@ export function shift(data: IData) {
   // 以下开始生成代码
   console.log("==========handling nodes start==========\n")
 
-  let initialCode =
+  const initialCode =
     '#include "cAppTask.h"\n\n' + "osThreadId cI2C_Thread_Task1;\n"
 
   ret.push(initialCode)
@@ -69,8 +69,3 @@ export function shift(data: IData) {
   console.log("==========handling nodes end==========\n")
   return ret.join("\n")
 }
-
-// import * as fs from "fs"
-// const data = fs.readFileSync("./code/api-test.json", "utf-8")
-// const ret = shift(JSON.parse(data))
-// console.log(ret)

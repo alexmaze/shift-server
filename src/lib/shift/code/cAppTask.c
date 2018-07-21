@@ -1,59 +1,56 @@
+
 #include "cAppTask.h"
+#include "parameter.h"
+#include "YD-CAN.h"
+#include "YD-LIST.h"
 
-osThreadId cI2C_Thread_Task1;
+/* USER CODE BEGIN I2C task*/
 
-typedef struct Node{
-    int inputs[20];
-    int outputs[20];
-}Node;
+osThreadId cAppTask_Thread;
+extern list_t *pDeviceList;
+void cAppTask_Fun(void const *argument)
+{
+  /* USER CODE BEGIN Variables */
+  SlaveDevice d_slider;
+  SlaveDevice d_number;
+  /* USER CODE END   Variables */
 
-void cI2C_Task1Fun(void const * argument){
-    Device_DataType param;
+  /* USER CODE BEGIN Setup */
 
-    Node node0;
-    Node node1;
-    Node node2;
-    Node node3;
+  d_slider.address = 0x10130201;
 
-    while(1) {
-        // RGBNode device_write
-        node0.inputs[0] = node2.outputs[0];
-        param.address = 0x16010101;
-        param.command = 0;
-        param.value = node0.inputs[0];
-        device_write(&param);
+  d_number.address = 0x20030201;
 
-        // SwitchNode device_read
-        param.address = 0x17010101;
-        param.command = 0x40;
-        param.value = 0;
-        device_read(&param);
-        node1.outputs[0] = param.value;
+  /* USER CODE END   Setup */
+  int number = 0;
+  while (1)
+  {
 
-        // AndPatch
-        node2.inputs[0] = node1.outputs[0];
-        node2.inputs[1] = node3.outputs[0];
-        node2.outputs[0] = node2.inputs[0] & node2.inputs[1];
+    /* USER CODE BEGIN Loop */
+    d_slider.command = CMD_READ_DATA;
+    device_read(&d_slider);
+    number++;
+    if (number > 99)
+      number = 0;
 
-        // SwitchNode device_read
-        param.address = 0x17010102;
-        param.command = 0x40;
-        param.value = 0;
-        device_read(&param);
-        node3.outputs[0] = param.value;
+    d_number.data[1] = d_slider.data[1];
 
-        osDelay(1000);
+    d_number.command = CMD_WRITE_DATA;
+    device_write(&d_number);
 
-        osDelay(100);
-    }
+    osDelay(100);
+
+    /* USER CODE END   Loop */
+
+    osDelay(100); //The minimum time delay for other thread
+  }
 }
 
-void cI2C_Task1(void) {
-    osThreadDef(cI2C_Handle_Task1, cI2C_Task1Fun, osPriorityNormal, 0, 256);
-    cI2C_Thread_Task1 = osThreadCreate(osThread(cI2C_Handle_Task1), NULL);
+void cApp_Task(void)
+{
+
+  osThreadDef(cAppTask_Handle, cAppTask_Fun, osPriorityNormal, 0, 256);
+  cAppTask_Thread = osThreadCreate(osThread(cAppTask_Handle), NULL);
 }
 
-void cI2C_Task(void) {
-    cI2C_Task1();
-}
-
+/* USER CODE END cAPP task*/
