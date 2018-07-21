@@ -3,6 +3,7 @@ import { IHander, IHandlerClass } from "./model"
 import { getNodeTypeKey } from "../utils/node"
 import { NumberNodeHandler } from "./hardware/sensor/number-node"
 import { SlidingRheostatHandler } from "./hardware/sensor/sliding-rheostat"
+import { BoolPitchHandler } from "./virtual/general/bool-pitch"
 
 export class NodeHandlerManager {
   handlers: Map<string, IHander>
@@ -10,7 +11,9 @@ export class NodeHandlerManager {
   constructor() {
     this.handlers = new Map()
 
-    this.register(NumberNodeHandler).register(SlidingRheostatHandler)
+    this.register(NumberNodeHandler)
+      .register(SlidingRheostatHandler)
+      .register(BoolPitchHandler)
   }
 
   handle(node: INode, ctx: IContext) {

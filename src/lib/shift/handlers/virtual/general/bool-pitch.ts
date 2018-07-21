@@ -1,15 +1,15 @@
 import { INode, IContext, INodeType, NodeTypePrimary } from "../../../models"
 import { AbstractNodeHandler } from "../../abstract-handler"
 
-export const NUMBER_NODE_TYPE: INodeType = {
-  primary: NodeTypePrimary.Device,
-  secondary: "sensor",
-  tertiary: "number_node"
+const TYPE: INodeType = {
+  primary: NodeTypePrimary.Virtual,
+  secondary: "general",
+  tertiary: "bool_pitch"
 }
 
-export class NumberNodeHandler extends AbstractNodeHandler {
+export class BoolPitchHandler extends AbstractNodeHandler {
   getSupportedType() {
-    return NUMBER_NODE_TYPE
+    return TYPE
   }
 
   handle(node: INode, ctx: IContext) {
