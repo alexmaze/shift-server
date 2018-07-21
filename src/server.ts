@@ -2,7 +2,6 @@ import * as express from "express"
 import * as bodyParser from "body-parser"
 import * as cookieParser from "cookie-parser"
 import * as path from "path"
-import * as log4js from "log4js"
 
 import AppConfig from "./config"
 import {
@@ -14,9 +13,9 @@ import { SessionController } from "./controllers/session"
 import { UserController } from "./controllers/user"
 import { ProjectController } from "./controllers/project"
 import { HardwareController } from "./controllers/hardware"
+import { Logger } from "./utils/logger"
 
-const logger = log4js.getLogger("[INIT]")
-logger.level = AppConfig.log4js.level
+const logger = Logger("INIT")
 
 const app = express()
 app.disable("x-powered-by")
