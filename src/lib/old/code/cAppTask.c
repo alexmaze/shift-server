@@ -22,19 +22,14 @@ void cAppTask_Fun(void const *argument)
   d_number.address = 0x20030201;
 
   /* USER CODE END   Setup */
-  int number = 0;
   while (1)
   {
 
     /* USER CODE BEGIN Loop */
     d_slider.command = CMD_READ_DATA;
     device_read(&d_slider);
-    number++;
-    if (number > 99)
-      number = 0;
 
     d_number.data[1] = d_slider.data[1];
-
     d_number.command = CMD_WRITE_DATA;
     device_write(&d_number);
 

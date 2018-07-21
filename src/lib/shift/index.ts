@@ -50,13 +50,6 @@ export class Shift {
     // compile each node
     for (const node of this.data) {
       this.handler.handle(node, this.context)
-
-      // setupWriter.writeLine()
-      // setupWriter.writeLine(`${getNodeVarType(node)} ${getNodeVarName(node)};`)
-
-      // if (!!node.address) {
-      //   setupWriter.writeLine(`${getNodeVarName(node)} = ${node.address};`)
-      // }
     }
   }
 }

@@ -36,6 +36,11 @@ typedef struct DeviceStruct
   uint8_t	 data[8];
 }SlaveDevice;
 
+typedef struct VirtualStruct
+{
+  uint8_t	 data[8];
+}VirtualNode;
+
 extern void cApp_Task(void);
 
 /* USER DEFINE START */

@@ -1,5 +1,7 @@
 import { INode, IContext, INodeType, NodeTypePrimary } from "../../../models"
 import { AbstractNodeHandler } from "../../abstract-handler"
+import { writeCommonSetup } from "../../../utils/handler"
+import { getNodeVarName } from "../../../utils/node"
 
 export const SLIDING_RHEOSTAT_TYPE: INodeType = {
   primary: NodeTypePrimary.Device,
@@ -13,7 +15,19 @@ export class SlidingRheostatHandler extends AbstractNodeHandler {
   }
 
   handle(node: INode, ctx: IContext) {
-    // TODO
-    console.log("handle")
+    const { setupWriter, loopWriter } = ctx
+
+    const varName = getNodeVarName(node)
+
+    // DEF
+    // no extra def
+
+    // SETUP
+    writeCommonSetup(setupWriter, node)
+
+    // LOOP
+    loopWriter.writeLine(`${varName}.command = CMD_READ_DATA;`)
+    loopWriter.writeLine(`device_read(&${varName});`)
+    loopWriter.writeLine()
   }
 }
