@@ -5,6 +5,8 @@ import { newController } from "../utils/controller-factory"
 import { HardwareModel } from "../models/hardware"
 import { Shift } from "../lib/shift"
 import { Logger } from "../utils/logger"
+import { SSL_OP_LEGACY_SERVER_CONNECT } from "constants";
+import { buildBin } from "../utils/build";
 
 const logger = Logger("HardwareController")
 
@@ -176,13 +178,21 @@ HardwareController.get("/master/:id", (req, res) => {
 })
 
 // 保存&烧录固件
-HardwareController.post("/master/:id/firmware", (req, res) => {
-  logger.debug("save & build", req.body)
-
+HardwareController.post("/master/:id/firmware", async (req, res) => {
   const shift = new Shift(req.body)
   try {
     shift.compile()
-    res.send(shift.renderC())
+    const c = shift.renderC()
+    const h = shift.renderH()
+
+    const image = await buildBin(c, h)
+    console.log("out", image)
+
+    const hw = HardwareModel.find(req.body.node_id)
+    hw.image = image
+    HardwareModel.save(hw)
+
+    res.status(200).json(image)
   } catch (e) {
     res.status(500).json(e)
   }
