@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --watch dist --inspect dist/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon --watch dist --inspect dist/index.js",
     "lint": "tslint src/**/*.ts",
     "build": "npm run lint && tsc --pretty",
     "build:live": "tsc --watch --pretty",
@@ -31,6 +31,7 @@
     "@types/mongoose": "^5.2.1",
     "@types/multer": "^1.3.7",
     "@types/node": "^10.5.2",
+    "cross-env": "^5.2.0",
     "eslint-plugin-prettier": "^2.6.2",
     "nodemon": "^1.18.3",
     "prettier": "^1.13.7",
