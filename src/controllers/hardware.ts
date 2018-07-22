@@ -140,7 +140,13 @@ HardwareController.post("/components/:id", (req, res) => {
 // -----------------------------------------------
 
 HardwareController.get("/status", (req, res) => {
-  res.json(HardwareModel.all()).end()
+  const data = []
+
+  const map = HardwareModel.all()
+  for (let [key, value] of map) {
+    data.push(value)
+  }
+  res.json(data).end()
 })
 
 HardwareController.post("/image", (req, res) => {
@@ -199,7 +205,7 @@ HardwareController.post("/master/:id/firmware", async (req, res) => {
 })
 
 // 获取可用设备列表
-HardwareController.get("/available", (req, res) => {
+HardwareController.get("/master/:id/components", (req, res) => {
   // TODO
   const type = req.query.type
   let data = availableItems

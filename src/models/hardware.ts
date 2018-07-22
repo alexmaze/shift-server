@@ -35,6 +35,6 @@ export class HardwareModel {
   }
 
   static all() {
-    return this.hardwares.values()
+    return this.hardwares
   }
 }

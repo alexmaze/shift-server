@@ -28,13 +28,13 @@ app.use(cookieParser())
 
 // 中间件
 app.use(HttpLogMiddleware)
-app.use(SessionMiddleware)
-app.use(AuthMiddleware)
+// app.use(SessionMiddleware)
+// app.use(AuthMiddleware)
 
 // 路由
-app.use("/api/session", SessionController)
-app.use("/api/user", UserController)
-app.use("/api/project", ProjectController)
+// app.use("/api/session", SessionController)
+// app.use("/api/user", UserController)
+// app.use("/api/project", ProjectController)
 app.use("/api/hardware", HardwareController)
 
 // 启动

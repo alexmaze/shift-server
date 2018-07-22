@@ -59,7 +59,7 @@ function getIP(req) {
  * @param res
  */
 function doLog(req, res) {
-  const ms = 0;
+  const ms = new Date().getTime() - req._startTime.getTime();
   logger.info(
     `${req.method} ${req.originalUrl || req.url} ${res.statusCode} ${ms.toFixed(
       2
