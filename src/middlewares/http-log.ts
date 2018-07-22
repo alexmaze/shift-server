@@ -1,8 +1,8 @@
-import { getLogger } from "log4js"
 import * as onHeaders from "on-headers"
 import * as onFinished from "on-finished"
+import { Logger } from "../utils/logger"
 
-const logger = getLogger("[HTTP]")
+const logger = Logger("HTTP")
 
 export function HttpLogMiddleware(req, res, next) {
   // request data
@@ -45,10 +45,12 @@ function recordStartTime() {
  * @return {string}
  */
 function getIP(req) {
-  return req.ip ||
+  return (
+    req.ip ||
     req._remoteAddress ||
     (req.connection && req.connection.remoteAddress) ||
     undefined
+  )
 }
 
 /**
@@ -57,6 +59,12 @@ function getIP(req) {
  * @param res
  */
 function doLog(req, res) {
-  const ms = (res._startAt[0] - req._startAt[0]) * 1e3 + (res._startAt[1] - req._startAt[1]) * 1e-6
-  logger.info(`${req.method} ${req.originalUrl || req.url} ${res.statusCode} ${ms.toFixed(2)}ms - ${req._remoteAddress}`)
+  const ms =
+    (res._startAt[0] - req._startAt[0]) * 1e3 +
+    (res._startAt[1] - req._startAt[1]) * 1e-6
+  logger.info(
+    `${req.method} ${req.originalUrl || req.url} ${res.statusCode} ${ms.toFixed(
+      2
+    )}ms - ${req._remoteAddress}`
+  )
 }

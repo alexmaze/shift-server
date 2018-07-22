@@ -1,8 +1,9 @@
 import { User, IUser } from "../models"
 import { newController } from "../utils/controller-factory"
 import { getLogger } from "log4js"
+import { Logger } from "../utils/logger"
 
-const logger = getLogger("[SessionController]")
+const logger = Logger("SessionController")
 
 export const SessionController = newController()
 
@@ -13,18 +14,23 @@ SessionController.put("/", (req, res) => {
   if (!req.body || !req.body.name || !req.body.password) {
     res.status(403).end()
   }
-  User.findOne({ name: req.body.name, password: req.body.password }).exec().then((ret) => {
-    if (ret) {
-      const user = ret.toObject() as IUser
-      user.password = undefined
-      req.session.user = user
-      res.json(user)
-    } else {
-      res.status(403).end()
-    }
-  }, (err) => {
-    res.status(500).json(err)
-  })
+  User.findOne({ name: req.body.name, password: req.body.password })
+    .exec()
+    .then(
+      ret => {
+        if (ret) {
+          const user = ret.toObject() as IUser
+          user.password = undefined
+          req.session.user = user
+          res.json(user)
+        } else {
+          res.status(403).end()
+        }
+      },
+      err => {
+        res.status(500).json(err)
+      }
+    )
 })
 
 /**

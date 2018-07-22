@@ -1,9 +1,9 @@
 import { User, IUser } from "../models"
 import { newController } from "../utils/controller-factory"
 import { pageQuery } from "../utils/page-query"
-import { getLogger } from "log4js"
+import { Logger } from "../utils/logger"
 
-const logger = getLogger("[UserController]")
+const logger = Logger("UserController")
 
 export const UserController = newController()
 
