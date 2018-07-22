@@ -2,11 +2,11 @@ import fs from "fs-extra"
 import crc32 from "buffer-crc32"
 import { upload } from "../utils/file-upload"
 import { newController } from "../utils/controller-factory"
-import { getLogger } from "log4js"
 import { HardwareModel } from "../models/hardware"
 import { Shift } from "../lib/shift"
+import { Logger } from "../utils/logger"
 
-const logger = getLogger("[HardwareController]")
+const logger = Logger("HardwareController")
 
 export const HardwareController = newController()
 
@@ -17,6 +17,7 @@ export const HardwareController = newController()
  */
 HardwareController.get("/report/:id", (req, res) => {
   const id = req.params.id
+  logger.info("hello")
 
   const hw = HardwareModel.find(id)
   hw.lastReportAt = new Date()

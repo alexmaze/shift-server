@@ -1,9 +1,10 @@
 import { Project, IProject } from "../models/project.js"
 import { newController } from "../utils/controller-factory.js"
 import { getLogger } from "log4js"
+import { Logger } from "../utils/logger.js"
 // import { Shift } from "../lib/shift/index.js"
 
-const logger = getLogger("[ProjectController]")
+const logger = Logger("ProjectController")
 
 export const ProjectController = newController()
 
