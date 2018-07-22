@@ -13,9 +13,15 @@ $("#build").on("click", function() {
   var id = $("#node_id_2").val()
   var code = $("#code").val()
   if (!code || !id) return
-  $.post("/api/hardware/build", { id: id, code: code }, function(result) {
-    console.log(result)
-    window.alert(JSON.stringify(result))
+
+  fetch(`/api/hardware/master/${id}/firmware`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: code
+  }).then(res => {
+    $("#code").value = res
   })
 })
 $("#deploy").on("click", function() {
